@@ -4,189 +4,255 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter','Noto Sans KR',sans-serif;background:#f0f0f0;color:#1a1a2e;padding:40px}
-h1{font-size:24px;font-weight:700;margin-bottom:8px}
-p.guide{font-size:13px;color:#666;margin-bottom:48px}
-.section{margin-bottom:64px}
-.section h2{font-size:14px;font-weight:600;color:#666;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.section .size{font-size:12px;color:#999;margin-bottom:16px;font-family:'DM Mono',monospace}
-.section .tip{font-size:12px;color:#3B5998;margin-top:12px;background:#f0f4ff;padding:8px 12px;border-radius:6px;display:inline-block}
+body{font-family:'Inter','Noto Sans KR',sans-serif;background:#0a0a0f;color:#e0e0e0;padding:48px;min-height:100vh}
+h1{font-size:28px;font-weight:700;color:#fff;margin-bottom:4px}
+p.guide{font-size:13px;color:#666;margin-bottom:56px}
+p.guide strong{color:#4A6CF7}
+.section{margin-bottom:72px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-head-left h2{font-size:13px;font-weight:600;color:#555;letter-spacing:.12em;text-transform:uppercase}
+.section-head-left .size{font-size:11px;color:#444;font-family:'DM Mono',monospace;margin-top:4px}
+.dl-btn{padding:8px 20px;background:#4A6CF7;color:#fff;border:none;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.03em;transition:all .2s;display:flex;align-items:center;gap:6px}
+.dl-btn:hover{background:#3B5998;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px}
+.dl-btn.done{background:#28c840}
+.asset-wrap{display:inline-block;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.4)}
 
-/* ===== 1. PROFILE IMAGE 161×161 ===== */
-.profile{width:161px;height:161px;border-radius:50%;background:#1a1a2e;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;overflow:hidden;position:relative}
-.profile::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(74,108,247,.15),transparent 70%)}
-.profile svg{width:52px;height:auto}
-.profile span{font-size:8px;font-weight:600;letter-spacing:.2em;color:rgba(255,255,255,.5);text-transform:uppercase}
+/* ===== SYMBOL SVG (공용) ===== */
+.sym{display:inline-block}
+
+/* ===== 1. PROFILE 161×161 ===== */
+.profile{width:161px;height:161px;border-radius:50%;background:#1a1a2e;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;overflow:hidden;position:relative}
+.profile::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 35% 35%,rgba(74,108,247,.2),transparent 65%)}
+.profile::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(transparent,rgba(74,108,247,.08))}
+.profile svg{width:56px;height:auto;position:relative;z-index:1;filter:drop-shadow(0 2px 8px rgba(74,108,247,.3))}
+.profile span{font-size:7.5px;font-weight:600;letter-spacing:.25em;color:rgba(255,255,255,.45);text-transform:uppercase;position:relative;z-index:1}
 
 /* ===== 2. PC BANNER 966×200 ===== */
-.banner{width:966px;height:200px;background:#1a1a2e;border-radius:12px;overflow:hidden;position:relative;display:flex;align-items:center;padding:0 60px}
-.banner::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px}
-.banner::after{content:'';position:absolute;top:-40%;right:-5%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(74,108,247,.2),transparent 70%);filter:blur(40px)}
-.banner-content{position:relative;z-index:1;display:flex;align-items:center;gap:24px}
-.banner-logo{display:flex;align-items:center;gap:12px}
-.banner-logo svg{width:48px;height:auto}
-.banner-text h3{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.01em}
-.banner-text p{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;letter-spacing:.05em}
-.banner-sep{width:1px;height:40px;background:rgba(255,255,255,.1);margin:0 16px}
-.banner-right{display:flex;flex-direction:column;gap:6px}
+.banner{width:966px;height:200px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);overflow:hidden;position:relative;display:flex;align-items:center;padding:0 60px}
+.banner::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:48px 48px}
+.banner-glow1{position:absolute;top:-40%;right:5%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(74,108,247,.2),transparent 65%);filter:blur(50px)}
+.banner-glow2{position:absolute;bottom:-50%;left:20%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.15),transparent 65%);filter:blur(40px)}
+.banner-content{position:relative;z-index:1;display:flex;align-items:center;gap:20px;width:100%}
+.banner-logo svg{width:52px;height:auto;filter:drop-shadow(0 2px 12px rgba(74,108,247,.3))}
+.banner-text{flex:1}
+.banner-text h3{font-size:24px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.banner-text p{font-size:12px;color:rgba(255,255,255,.35);margin-top:5px;letter-spacing:.06em}
+.banner-sep{width:1px;height:48px;background:linear-gradient(transparent,rgba(255,255,255,.1),transparent);margin:0 20px}
+.banner-right{display:flex;flex-direction:column;gap:8px}
 .banner-stat{display:flex;align-items:baseline;gap:6px}
-.banner-stat strong{font-size:20px;font-weight:700;color:#4A6CF7;font-family:'DM Mono',monospace}
-.banner-stat span{font-size:11px;color:rgba(255,255,255,.35)}
-.banner-url{position:absolute;right:60px;bottom:20px;font-size:10px;color:rgba(255,255,255,.2);font-family:'DM Mono',monospace;letter-spacing:.05em}
+.banner-stat strong{font-size:22px;font-weight:700;color:#4A6CF7;font-family:'DM Mono',monospace}
+.banner-stat span{font-size:11px;color:rgba(255,255,255,.3)}
+.banner-url{position:absolute;right:60px;bottom:20px;font-size:9px;color:rgba(255,255,255,.15);font-family:'DM Mono',monospace;letter-spacing:.08em}
+.banner-tag{position:absolute;right:60px;top:20px;font-size:8px;color:rgba(74,108,247,.5);font-family:'DM Mono',monospace;letter-spacing:.15em;text-transform:uppercase}
 
-/* ===== 3. MOBILE COVER 1080×1080 ===== */
-.mobile-cover{width:540px;height:540px;background:#1a1a2e;border-radius:16px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px}
-.mobile-cover::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:40px 40px}
-.mobile-cover::after{content:'';position:absolute;bottom:-20%;left:50%;transform:translateX(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(74,108,247,.15),transparent 60%);filter:blur(60px)}
+/* ===== 3. MOBILE COVER 540×540 (=1080@2x) ===== */
+.mobile-cover{width:540px;height:540px;background:linear-gradient(180deg,#1a1a2e 0%,#0f1629 100%);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+.mobile-cover::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:36px 36px}
+.mc-glow{position:absolute;bottom:-15%;left:50%;transform:translateX(-50%);width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(74,108,247,.18),transparent 60%);filter:blur(60px)}
+.mc-ring{position:absolute;width:320px;height:320px;border-radius:50%;border:1px solid rgba(74,108,247,.06)}
+.mc-ring2{position:absolute;width:440px;height:440px;border-radius:50%;border:1px solid rgba(74,108,247,.03)}
 .mc-content{position:relative;z-index:1;text-align:center}
-.mc-content svg{width:80px;height:auto;margin-bottom:16px}
-.mc-content h3{font-size:28px;font-weight:700;color:#fff;letter-spacing:-.01em}
-.mc-content p.mc-sub{font-size:13px;color:rgba(255,255,255,.35);margin-top:8px;letter-spacing:.1em}
-.mc-content p.mc-tag{font-size:11px;color:rgba(255,255,255,.2);margin-top:24px;letter-spacing:.15em;text-transform:uppercase}
-.mc-note{font-size:10px;color:#999;margin-top:8px}
+.mc-content svg{width:88px;height:auto;margin-bottom:20px;filter:drop-shadow(0 4px 20px rgba(74,108,247,.3))}
+.mc-content h3{font-size:30px;font-weight:700;color:#fff;letter-spacing:.02em}
+.mc-content p.mc-sub{font-size:13px;color:rgba(255,255,255,.3);margin-top:10px;letter-spacing:.1em}
+.mc-content p.mc-tag{font-size:10px;color:rgba(255,255,255,.15);margin-top:28px;letter-spacing:.2em;text-transform:uppercase}
+.mc-content .mc-line{width:40px;height:2px;background:linear-gradient(90deg,transparent,#4A6CF7,transparent);margin:16px auto 0}
 
-/* ===== 4. POST THUMBNAIL 1200×630 ===== */
-.thumb{width:600px;height:315px;border-radius:12px;overflow:hidden;position:relative;display:flex;align-items:flex-end;padding:32px}
+/* ===== 4. THUMBNAIL 600×315 (=1200@2x) ===== */
+.thumb{width:600px;height:315px;overflow:hidden;position:relative;display:flex;align-items:flex-end;padding:36px}
 .thumb-portfolio{background:linear-gradient(135deg,#1a1a2e 0%,#2d2b55 100%)}
 .thumb-info{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%)}
-.thumb::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:40px 40px}
+.thumb::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:36px 36px}
 .thumb-content{position:relative;z-index:1}
-.thumb-label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#4A6CF7;margin-bottom:8px}
-.thumb-title{font-size:22px;font-weight:700;color:#fff;line-height:1.3}
-.thumb-title span{color:rgba(255,255,255,.5)}
-.thumb-brand{position:absolute;top:24px;right:24px;display:flex;align-items:center;gap:8px;z-index:1}
-.thumb-brand svg{width:24px;height:auto}
-.thumb-brand span{font-size:10px;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.1em}
-.thumb-accent{position:absolute;top:-30%;right:-10%;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(74,108,247,.2),transparent 70%);filter:blur(40px)}
-.thumb-accent2{position:absolute;bottom:-20%;left:10%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.2),transparent 70%);filter:blur(40px)}
+.thumb-label{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#4A6CF7;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.thumb-label::before{content:'';width:16px;height:1px;background:#4A6CF7}
+.thumb-title{font-size:24px;font-weight:700;color:#fff;line-height:1.35}
+.thumb-title span{color:rgba(255,255,255,.4);font-weight:400}
+.thumb-brand{position:absolute;top:24px;right:28px;display:flex;align-items:center;gap:8px;z-index:1}
+.thumb-brand svg{width:22px;height:auto}
+.thumb-brand span{font-size:9px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:.12em}
+.thumb-accent{position:absolute;top:-25%;right:-8%;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(74,108,247,.2),transparent 65%);filter:blur(40px)}
+.thumb-accent2{position:absolute;bottom:-15%;left:8%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.15),transparent 65%);filter:blur(35px)}
+.thumb-line{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#4A6CF7,#3B5998,transparent)}
 
-/* ===== 5. POST CTA BANNER 960×200 ===== */
-.cta-banner{width:960px;height:200px;background:#1a1a2e;border-radius:16px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 48px}
-.cta-banner::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:48px 48px}
-.cta-banner::after{content:'';position:absolute;right:-5%;top:-30%;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(74,108,247,.18),transparent 65%);filter:blur(40px)}
+/* ===== 5. CTA BANNER 960×200 ===== */
+.cta-banner{width:960px;height:200px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 52px}
+.cta-banner::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:48px 48px}
+.cta-glow{position:absolute;right:0;top:-20%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(74,108,247,.15),transparent 60%);filter:blur(50px)}
 .cta-left{position:relative;z-index:1}
-.cta-left h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px}
-.cta-left p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.6}
-.cta-btn{position:relative;z-index:1;padding:14px 32px;background:#4A6CF7;color:#fff;font-size:13px;font-weight:600;letter-spacing:.05em;border-radius:999px;text-decoration:none;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.cta-left h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:8px}
+.cta-left p{font-size:13px;color:rgba(255,255,255,.35);line-height:1.6}
+.cta-left p strong{color:#4A6CF7;font-weight:600}
+.cta-btn{position:relative;z-index:1;padding:14px 36px;background:#4A6CF7;color:#fff;font-size:13px;font-weight:600;letter-spacing:.05em;border-radius:999px;text-decoration:none;white-space:nowrap;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(74,108,247,.3)}
 .cta-btn svg{width:16px;height:16px}
 
 /* ===== 6. DIVIDER 960×40 ===== */
-.divider{width:960px;height:40px;display:flex;align-items:center;justify-content:center;gap:12px}
+.divider{width:960px;height:40px;display:flex;align-items:center;justify-content:center;gap:12px;background:#fff}
 .divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,#ddd,transparent)}
 .divider-dot{width:4px;height:4px;border-radius:50%;background:#3B5998}
 </style>
 </head>
 <body>
-<h1>동보웹 네이버 블로그 디자인 에셋</h1>
-<p class="guide">각 에셋을 브라우저에서 스크린샷(Ctrl+Shift+S 또는 캡처 도구) 뜨세요. 실제 사이즈 표기되어 있습니다.</p>
+<h1>동보웹 블로그 디자인 에셋</h1>
+<p class="guide"><strong>PNG 다운로드</strong> 버튼을 클릭하면 해당 에셋이 정확한 사이즈로 다운로드됩니다.</p>
 
 <!-- 1. PROFILE -->
 <div class="section">
-  <h2>1. 프로필 이미지</h2>
-  <div class="size">161 × 161px</div>
-  <div class="profile">
-    <svg viewBox="0 0 80 68" fill="none"><defs><linearGradient id="pb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient><linearGradient id="pt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3451B2"/><stop offset="100%" stop-color="#2D4A85"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#pb)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="url(#pt)"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="29.5" cy="36" r=".8" fill="#fff"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><circle cx="55.5" cy="36" r=".8" fill="#fff"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-    <span>DONGBO WEB</span>
+  <div class="section-head">
+    <div class="section-head-left"><h2>1. 프로필 이미지</h2><div class="size">161 × 161px</div></div>
+    <button class="dl-btn" onclick="download(this,'.profile','dongboweb-profile',1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드</button>
   </div>
-  <div class="tip">원형으로 잘리므로 중앙 정렬 중요</div>
+  <div class="asset-wrap">
+    <div class="profile">
+      <svg viewBox="0 0 80 68" fill="none"><defs><linearGradient id="pb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient><linearGradient id="pt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3451B2"/><stop offset="100%" stop-color="#2D4A85"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#pb)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="url(#pt)"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="29.5" cy="36" r=".8" fill="#fff"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><circle cx="55.5" cy="36" r=".8" fill="#fff"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      <span>DONGBO WEB</span>
+    </div>
+  </div>
 </div>
 
 <!-- 2. PC BANNER -->
 <div class="section">
-  <h2>2. PC 상단 배너</h2>
-  <div class="size">966 × 200px</div>
-  <div class="banner">
-    <div class="banner-content">
-      <div class="banner-logo">
-        <svg viewBox="0 0 80 68" fill="none"><defs><linearGradient id="bb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient><linearGradient id="bt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3451B2"/><stop offset="100%" stop-color="#2D4A85"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#bb)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="url(#bt)"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="29.5" cy="36" r=".8" fill="#fff"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><circle cx="55.5" cy="36" r=".8" fill="#fff"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+  <div class="section-head">
+    <div class="section-head-left"><h2>2. PC 상단 배너</h2><div class="size">966 × 200px</div></div>
+    <button class="dl-btn" onclick="download(this,'.banner','dongboweb-banner-pc',1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="banner">
+      <div class="banner-glow1"></div><div class="banner-glow2"></div>
+      <div class="banner-content">
+        <div class="banner-logo"><svg viewBox="0 0 80 68" fill="none"><defs><linearGradient id="bb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient><linearGradient id="bt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3451B2"/><stop offset="100%" stop-color="#2D4A85"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#bb)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="url(#bt)"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="29.5" cy="36" r=".8" fill="#fff"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><circle cx="55.5" cy="36" r=".8" fill="#fff"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div>
+        <div class="banner-text"><h3>DONGBO WEB</h3><p>소상공인 전문 프리미엄 웹사이트</p></div>
+        <div class="banner-sep"></div>
+        <div class="banner-right">
+          <div class="banner-stat"><strong>11</strong><span>Templates</span></div>
+          <div class="banner-stat"><strong>15</strong><span>만원부터</span></div>
+        </div>
       </div>
-      <div class="banner-text">
-        <h3>DONGBO WEB</h3>
-        <p>소상공인 전문 프리미엄 웹사이트</p>
-      </div>
-      <div class="banner-sep"></div>
-      <div class="banner-right">
-        <div class="banner-stat"><strong>11</strong><span>Templates</span></div>
-        <div class="banner-stat"><strong>15</strong><span>만원부터</span></div>
-      </div>
+      <span class="banner-tag">Est. 2025</span>
+      <span class="banner-url">dongboweb.vercel.app</span>
     </div>
-    <span class="banner-url">dongboweb.vercel.app</span>
   </div>
 </div>
 
 <!-- 3. MOBILE COVER -->
 <div class="section">
-  <h2>3. 모바일 커버</h2>
-  <div class="size">1080 × 1080px (표시: 540 × 540, 2배 해상도로 캡처)</div>
-  <div class="mobile-cover">
-    <div class="mc-content">
-      <svg viewBox="0 0 80 68" fill="none"><defs><linearGradient id="mb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient><linearGradient id="mt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3451B2"/><stop offset="100%" stop-color="#2D4A85"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#mb)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="url(#mt)"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="29.5" cy="36" r=".8" fill="#fff"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><circle cx="55.5" cy="36" r=".8" fill="#fff"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-      <h3>DONGBO WEB</h3>
-      <p class="mc-sub">소상공인 전문 프리미엄 웹사이트</p>
-      <p class="mc-tag">Premium Website for Small Business</p>
-    </div>
+  <div class="section-head">
+    <div class="section-head-left"><h2>3. 모바일 커버</h2><div class="size">1080 × 1080px (2x 렌더링)</div></div>
+    <button class="dl-btn" onclick="download(this,'.mobile-cover','dongboweb-cover-mobile',2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드 (1080px)</button>
   </div>
-  <div class="mc-note">* 모바일 커버는 200% 줌에서 캡처하면 1080px 원본 사이즈</div>
-</div>
-
-<!-- 4. POST THUMBNAILS -->
-<div class="section">
-  <h2>4. 포스팅 썸네일 — 포트폴리오용</h2>
-  <div class="size">1200 × 630px (표시: 600 × 315, 2배 해상도로 캡처)</div>
-  <div class="thumb thumb-portfolio">
-    <div class="thumb-accent"></div>
-    <div class="thumb-accent2"></div>
-    <div class="thumb-brand"><svg viewBox="0 0 80 68" fill="none" width="24"><defs><linearGradient id="tb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#tb1)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="#2D4A85"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>DONGBO WEB</span></div>
-    <div class="thumb-content">
-      <div class="thumb-label">Portfolio</div>
-      <div class="thumb-title">커피전문점 홈페이지<br><span>모카 — Light Template</span></div>
+  <div class="asset-wrap">
+    <div class="mobile-cover">
+      <div class="mc-glow"></div><div class="mc-ring"></div><div class="mc-ring2"></div>
+      <div class="mc-content">
+        <svg viewBox="0 0 80 68" fill="none"><defs><linearGradient id="mb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient><linearGradient id="mt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3451B2"/><stop offset="100%" stop-color="#2D4A85"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#mb)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="url(#mt)"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="29.5" cy="36" r=".8" fill="#fff"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><circle cx="55.5" cy="36" r=".8" fill="#fff"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        <h3>DONGBO WEB</h3>
+        <p class="mc-sub">소상공인 전문 프리미엄 웹사이트</p>
+        <div class="mc-line"></div>
+        <p class="mc-tag">Premium Website for Small Business</p>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- 4-A. THUMBNAIL PORTFOLIO -->
 <div class="section">
-  <h2>4-B. 포스팅 썸네일 — 정보성 콘텐츠용</h2>
-  <div class="size">1200 × 630px (표시: 600 × 315)</div>
-  <div class="thumb thumb-info">
-    <div class="thumb-accent"></div>
-    <div class="thumb-accent2"></div>
-    <div class="thumb-brand"><svg viewBox="0 0 80 68" fill="none" width="24"><defs><linearGradient id="tb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#tb2)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="#2D4A85"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>DONGBO WEB</span></div>
-    <div class="thumb-content">
-      <div class="thumb-label">Guide</div>
-      <div class="thumb-title">소상공인 홈페이지,<br><span>정말 필요할까?</span></div>
+  <div class="section-head">
+    <div class="section-head-left"><h2>4-A. 썸네일 — 포트폴리오</h2><div class="size">1200 × 630px (2x 렌더링)</div></div>
+    <button class="dl-btn" onclick="download(this,'.thumb-portfolio','dongboweb-thumb-portfolio',2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드 (1200px)</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="thumb thumb-portfolio">
+      <div class="thumb-accent"></div><div class="thumb-accent2"></div><div class="thumb-line"></div>
+      <div class="thumb-brand"><svg viewBox="0 0 80 68" fill="none" width="22"><rect x="4" y="4" width="72" height="58" rx="12" fill="#3B5998"/><rect x="4" y="4" width="72" height="18" rx="12" fill="#2D4A85"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>DONGBO WEB</span></div>
+      <div class="thumb-content">
+        <div class="thumb-label">Portfolio</div>
+        <div class="thumb-title">커피전문점 홈페이지<br><span>모카 — Light Template</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4-B. THUMBNAIL INFO -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>4-B. 썸네일 — 정보성 콘텐츠</h2><div class="size">1200 × 630px (2x 렌더링)</div></div>
+    <button class="dl-btn" onclick="download(this,'.thumb-info','dongboweb-thumb-info',2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드 (1200px)</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="thumb thumb-info">
+      <div class="thumb-accent"></div><div class="thumb-accent2"></div><div class="thumb-line"></div>
+      <div class="thumb-brand"><svg viewBox="0 0 80 68" fill="none" width="22"><rect x="4" y="4" width="72" height="58" rx="12" fill="#3B5998"/><rect x="4" y="4" width="72" height="18" rx="12" fill="#2D4A85"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>DONGBO WEB</span></div>
+      <div class="thumb-content">
+        <div class="thumb-label">Guide</div>
+        <div class="thumb-title">소상공인 홈페이지,<br><span>정말 필요할까?</span></div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- 5. CTA BANNER -->
 <div class="section">
-  <h2>5. 포스팅 하단 CTA 배너</h2>
-  <div class="size">960 × 200px</div>
-  <div class="cta-banner">
-    <div class="cta-left">
-      <h3>내 가게만의 홈페이지, 15만원부터.</h3>
-      <p>지금 바로 포트폴리오를 확인하세요.</p>
+  <div class="section-head">
+    <div class="section-head-left"><h2>5. 포스팅 하단 CTA 배너</h2><div class="size">960 × 200px</div></div>
+    <button class="dl-btn" onclick="download(this,'.cta-banner','dongboweb-cta-banner',1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="cta-banner">
+      <div class="cta-glow"></div>
+      <div class="cta-left">
+        <h3>내 가게만의 홈페이지, 15만원부터.</h3>
+        <p>포트폴리오를 확인하고 <strong>카카오톡</strong>으로 상담하세요.</p>
+      </div>
+      <a class="cta-btn" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        포트폴리오 보기
+      </a>
     </div>
-    <a class="cta-btn" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-      포트폴리오 보기
-    </a>
   </div>
 </div>
 
 <!-- 6. DIVIDER -->
 <div class="section">
-  <h2>6. 포스팅 내 구분선</h2>
-  <div class="size">960 × 40px</div>
-  <div class="divider">
-    <div class="divider-line"></div>
-    <div class="divider-dot"></div>
-    <div class="divider-dot"></div>
-    <div class="divider-dot"></div>
-    <div class="divider-line"></div>
+  <div class="section-head">
+    <div class="section-head-left"><h2>6. 포스팅 내 구분선</h2><div class="size">960 × 40px</div></div>
+    <button class="dl-btn" onclick="download(this,'.divider','dongboweb-divider',1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-line"></div>
+    </div>
   </div>
 </div>
 
+<script>
+function download(btn, selector, filename, scale) {
+  var el = document.querySelector(selector);
+  btn.textContent = '생성 중...';
+  html2canvas(el, {
+    scale: scale,
+    backgroundColor: null,
+    useCORS: true,
+    logging: false
+  }).then(function(canvas) {
+    var link = document.createElement('a');
+    link.download = filename + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> 완료!';
+    btn.classList.add('done');
+    setTimeout(function() {
+      btn.classList.remove('done');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드';
+    }, 2000);
+  });
+}
+</script>
 </body></html>
