@@ -235,44 +235,66 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 .pricing-section{padding:160px 40px;max-width:1400px;margin:0 auto}
 .pricing-header{margin-bottom:64px}
 .pricing-title{font-size:clamp(28px,3.5vw,44px);font-weight:600;letter-spacing:-.035em;margin-bottom:12px;word-break:keep-all}
-.pricing-desc{font-size:15px;color:var(--dim);max-width:460px;line-height:1.7;letter-spacing:-.005em}
+.pricing-desc{font-size:15px;color:var(--dim);max-width:520px;line-height:1.7;letter-spacing:-.005em}
+/* 비교 스트립 */
 .pricing-compare{
-  margin-top:20px;padding:16px 24px;background:var(--surface);
-  border:1px solid var(--border);border-radius:var(--radius);
-  display:inline-flex;align-items:center;gap:16px;font-size:13px;color:var(--fg3);line-height:1.5;
+  margin-top:28px;padding:20px 32px;background:var(--fg);color:var(--bg);
+  border-radius:var(--radius);display:flex;justify-content:center;align-items:center;
+  gap:32px;font-size:14px;line-height:1.5;
 }
-.pricing-compare strong{color:var(--fg);font-weight:600}
+.pricing-compare .old{text-decoration:line-through;opacity:.5}
+.pricing-compare .vs{opacity:.3;font-size:12px;letter-spacing:.06em}
+.pricing-compare .new{font-weight:700;color:#4A6CF7}
 .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .pricing-label-once{font-family:var(--font-mono);font-size:11px;color:var(--dim);letter-spacing:.04em;margin-top:-4px;margin-bottom:8px}
+.pricing-price-sub{font-size:12px;color:var(--dim);margin-top:4px;margin-bottom:4px;letter-spacing:-.005em}
 /* 운영비 카드 */
-.pricing-ops{margin-top:32px;padding:40px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+.pricing-ops{margin-top:32px;padding:40px;background:var(--surface);border:2px dashed var(--border);border-radius:var(--radius)}
 .pricing-ops-header{display:flex;align-items:baseline;gap:20px;margin-bottom:12px;flex-wrap:wrap}
 .pricing-ops-title{font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--dim)}
+.pricing-ops-badge{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.02em;background:#4A6CF7;color:#fff;padding:4px 12px;border-radius:20px;margin-left:4px}
 .pricing-ops-price{font-size:clamp(28px,3.5vw,44px);font-weight:600;letter-spacing:-.02em}
 .pricing-ops-price span{font-size:16px;font-weight:400}
 .pricing-ops-per{color:var(--dim);font-size:14px}
 .pricing-ops-desc{font-size:14px;color:var(--dim);margin-bottom:28px;line-height:1.7;letter-spacing:-.005em}
 .pricing-ops-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.pricing-ops-item-title{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--fg);margin-bottom:12px;text-transform:uppercase}
+.pricing-ops-item-title{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--fg);margin-bottom:12px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.pricing-ops-item-title svg{width:14px;height:14px;flex-shrink:0}
 .pricing-ops-feat{font-size:13px;color:var(--fg3);line-height:1.65;padding:4px 0;letter-spacing:-.005em}
 .pricing-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:48px 40px;cursor:none;transition:border-color .4s,transform .4s var(--ease),box-shadow .4s}
 .pricing-card:hover{border-color:var(--dim2);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.07)}
-.pricing-card.featured{border:2px solid var(--fg);position:relative;background:linear-gradient(180deg,var(--surface) 0%,rgba(10,10,10,.015) 100%)}
-.pricing-card.featured::before{content:'POPULAR';position:absolute;top:20px;right:20px;font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.06em;background:var(--fg);color:var(--surface);padding:5px 14px;border-radius:20px}
+/* Basic featured 카드 — 다크 반전 */
+.pricing-card.featured{background:var(--fg);color:var(--bg);border:none;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.pricing-card.featured:hover{transform:translateY(-8px);box-shadow:0 28px 80px rgba(0,0,0,.22),0 0 0 1px rgba(74,108,247,.15)}
+.pricing-card.featured::before{content:'BEST';position:absolute;top:20px;right:20px;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.06em;background:#4A6CF7;color:#fff;padding:5px 14px;border-radius:20px;box-shadow:0 0 20px rgba(74,108,247,.4)}
+.pricing-card.featured .pricing-tier-name{color:rgba(255,255,255,.5)}
+.pricing-card.featured .pricing-price span{color:rgba(255,255,255,.5)}
+.pricing-card.featured .pricing-label-once{color:rgba(255,255,255,.4)}
+.pricing-card.featured .pricing-price-sub{color:rgba(255,255,255,.4)}
+.pricing-card.featured .pricing-card-desc{color:rgba(255,255,255,.6)}
+.pricing-card.featured .pricing-feat{color:rgba(255,255,255,.85);border-bottom-color:rgba(255,255,255,.1)}
+.pricing-card.featured .pricing-feat.dim{color:rgba(255,255,255,.35)}
+.pricing-card.featured .pricing-check{background:rgba(255,255,255,.15)}
+.pricing-card.featured .pricing-feat.dim .pricing-check{background:rgba(255,255,255,.08)}
+.pricing-card.featured:hover .pricing-check{background:rgba(255,255,255,.3)}
+.pricing-card.featured .pricing-check svg{stroke:rgba(255,255,255,.6)}
+.pricing-card.featured:hover .pricing-check svg{stroke:#fff}
 .pricing-tier-name{font-family:var(--font-mono);font-size:11px;color:var(--dim);letter-spacing:.1em;margin-bottom:24px}
 .pricing-price{font-size:56px;font-weight:700;letter-spacing:-.05em;margin-bottom:4px}
 .pricing-price span{font-size:18px;font-weight:400;color:var(--dim);margin-left:2px}
 .pricing-card-desc{font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:40px;letter-spacing:-.005em;word-break:keep-all}
 .pricing-features{margin-bottom:40px}
 .pricing-feat{font-size:13px;color:var(--fg2);padding:11px 0;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:12px;letter-spacing:-.005em}
+.pricing-feat.dim{color:var(--dim2)}
+.pricing-feat .star{color:#4A6CF7;font-size:11px;margin-right:-4px}
 .pricing-check{width:16px;height:16px;border-radius:50%;background:var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .3s}
 .pricing-card:hover .pricing-check{background:var(--fg)}
 .pricing-check svg{width:8px;height:8px;transition:stroke .3s}
 .pricing-card:hover .pricing-check svg{stroke:var(--surface)}
 .pricing-btn{display:block;text-align:center;font-size:14px;font-weight:500;padding:16px;border-radius:12px;border:1px solid var(--border);cursor:none;transition:all .3s var(--ease)}
 .pricing-btn:hover{background:var(--fg);color:var(--surface);border-color:var(--fg);transform:translateY(-2px)}
-.pricing-card.featured .pricing-btn{background:var(--fg);color:var(--surface);border-color:var(--fg)}
-.pricing-card.featured .pricing-btn:hover{background:var(--fg2)}
+.pricing-card.featured .pricing-btn{background:#fff;color:var(--fg);border-color:#fff;font-weight:600}
+.pricing-card.featured .pricing-btn:hover{background:rgba(255,255,255,.85);transform:translateY(-2px)}
 
 /* ===== CTA ===== */
 .cta-section{padding:200px 40px;max-width:1400px;margin:0 auto;text-align:center}
@@ -343,6 +365,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
   .marquee-wrap{padding:28px 0}
   .process-section{padding:100px 20px}.process-grid{grid-template-columns:1fr}
   .pricing-section{padding:100px 20px}.pricing-grid{grid-template-columns:1fr}
+  .pricing-compare{flex-direction:column;gap:8px;padding:16px 20px;font-size:13px;text-align:center}
   .pricing-ops{padding:28px 20px}.pricing-ops-grid{grid-template-columns:1fr;gap:20px}
   .cta-section{padding:100px 20px}
   .footer{padding:24px 20px;grid-template-columns:1fr;gap:12px;text-align:center}.footer-right{text-align:center}
@@ -568,12 +591,12 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 <!-- ===== PRICING ===== -->
 <section class="pricing-section" id="pricing">
   <div class="pricing-header sr">
-    <h2 class="pricing-title">커피 한 잔 값으로<br>프리미엄 홈페이지를.</h2>
-    <p class="pricing-desc">일반 외주 300~500만원, 유지보수 월 20만원 이상. 동보웹은 10분의 1 가격에 같은 퀄리티를 드립니다.</p>
+    <h2 class="pricing-title">300만원짜리 홈페이지를,<br>15만원에 드립니다.</h2>
+    <p class="pricing-desc">같은 퀄리티, 10분의 1 가격. 제작부터 유지보수까지 전부 포함된 가격입니다.</p>
     <div class="pricing-compare">
-      <span>일반 외주 <strong>300~500만원</strong></span>
-      <span style="color:var(--dim3)">vs</span>
-      <span>동보웹 <strong>15만원~</strong></span>
+      <span class="old">일반 외주 300~500만원</span>
+      <span class="vs">VS</span>
+      <span class="new">동보웹 15만원~</span>
     </div>
   </div>
   <div class="pricing-grid">
@@ -581,7 +604,8 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
       <div class="pricing-tier-name">LIGHT</div>
       <div class="pricing-price">15<span>만원</span></div>
       <div class="pricing-label-once">1회 제작비</div>
-      <div class="pricing-card-desc">핵심에 집중한 한 페이지. 검색했을 때 "여기 괜찮은데?" 하는 첫인상을 만듭니다.</div>
+      <div class="pricing-price-sub">하루 420원 — 커피 한 잔의 1/10</div>
+      <div class="pricing-card-desc">검색했을 때, "여기 괜찮은데?"<br>그 한마디가 시작됩니다.</div>
       <div class="pricing-features">
         <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>업종에 딱 맞는 프리미엄 디자인</div>
         <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>PC + 모바일 완벽 대응</div>
@@ -589,53 +613,51 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
         <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>사진 갤러리 + 라이트박스</div>
         <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>지도 + 영업시간 + 연락처</div>
       </div>
-      <a href="#contact" class="pricing-btn" data-cursor="hover">상담 신청</a>
+      <a href="#contact" class="pricing-btn" data-cursor="hover">무료 상담받기</a>
     </div>
     <div class="pricing-card featured sr sr-d2" data-cursor="hover">
       <div class="pricing-tier-name">BASIC</div>
       <div class="pricing-price">25<span>만원</span></div>
       <div class="pricing-label-once">1회 제작비</div>
-      <div class="pricing-card-desc">Light의 모든 것 + 프리미엄 인터랙션. "여기 사이트 진짜 잘 만들었네" 소리가 나옵니다.</div>
+      <div class="pricing-price-sub">하루 690원 — 가성비 끝판왕</div>
+      <div class="pricing-card-desc">처음 본 사이트인데 북마크하게 되는 경험.</div>
       <div class="pricing-features">
-        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>Light 전체 기능 포함</div>
-        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>브랜드 전용 로딩 화면</div>
-        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>고객 후기 캐러셀</div>
-        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>FAQ 아코디언</div>
-        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>프리미엄 애니메이션 + 마이크로 인터랙션</div>
-        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>네이버 + 구글 검색 노출 최적화</div>
-        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>접근성 설계 (누구나 쉽게 이용)</div>
+        <div class="pricing-feat dim"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>Light 전체 기능 포함</div>
+        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span><span class="star">★</span> 브랜드 전용 로딩 화면</div>
+        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span><span class="star">★</span> 고객 후기 캐러셀</div>
+        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span><span class="star">★</span> FAQ 아코디언</div>
+        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span><span class="star">★</span> 프리미엄 애니메이션 + 인터랙션</div>
+        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span><span class="star">★</span> 네이버 + 구글 검색 노출 최적화</div>
+        <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span><span class="star">★</span> 접근성 설계 (누구나 쉽게 이용)</div>
       </div>
-      <a href="#contact" class="pricing-btn" data-cursor="hover">상담 신청</a>
+      <a href="#contact" class="pricing-btn" data-cursor="hover">무료 상담받기</a>
     </div>
   </div>
   <!-- 운영비 카드 -->
   <div class="pricing-ops sr sr-d3">
     <div class="pricing-ops-header">
-      <div class="pricing-ops-title">월 운영비</div>
+      <div class="pricing-ops-title">월 운영비 <span class="pricing-ops-badge">하루 660원</span></div>
       <div class="pricing-ops-price">19,900<span>원</span> <span class="pricing-ops-per">/월</span></div>
     </div>
-    <div class="pricing-ops-desc">하루 약 660원. 호스팅, 검색 등록, 수정, 시즌 관리까지 전부 포함입니다.</div>
+    <div class="pricing-ops-desc">커피 한 잔 값이면 한 달. 호스팅, 검색 등록, 수정, 시즌 관리까지 전부 포함입니다.</div>
     <div class="pricing-ops-grid">
       <div class="pricing-ops-item">
-        <div class="pricing-ops-item-title">인프라</div>
+        <div class="pricing-ops-item-title"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="10" rx="2"/><path d="M5 4V2.5A1.5 1.5 0 0 1 6.5 1h3A1.5 1.5 0 0 1 11 2.5V4"/><path d="M8 8v2"/></svg>인프라</div>
         <div class="pricing-ops-feat">서버 + SSL 보안 인증서 + CDN</div>
         <div class="pricing-ops-feat">도메인 유지 (.com / .kr)</div>
         <div class="pricing-ops-feat">24시간 가동 보장</div>
-
       </div>
       <div class="pricing-ops-item">
-        <div class="pricing-ops-item-title">검색 + 분석</div>
+        <div class="pricing-ops-item-title"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>검색 + 분석</div>
         <div class="pricing-ops-feat">네이버 검색 등록 + 노출 관리</div>
         <div class="pricing-ops-feat">구글 검색 등록 + 색인 관리</div>
         <div class="pricing-ops-feat">검색 결과 제목·설명 최적화</div>
-
       </div>
       <div class="pricing-ops-item">
-        <div class="pricing-ops-item-title">유지보수 + 관리</div>
+        <div class="pricing-ops-item-title"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8.5 1.5l1.2 3.7h3.9l-3.1 2.3 1.2 3.7-3.2-2.3-3.2 2.3 1.2-3.7-3.1-2.3h3.9z"/></svg>유지보수 + 관리</div>
         <div class="pricing-ops-feat">월 1회 수정 (사진·메뉴·가격 등)</div>
         <div class="pricing-ops-feat">카톡 요청 → 당일~1영업일 반영</div>
         <div class="pricing-ops-feat">시즌 이벤트 배너 교체</div>
-
       </div>
     </div>
   </div>
