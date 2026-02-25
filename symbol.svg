@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 68" fill="none">
+  <defs>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4A6CF7"/>
+      <stop offset="100%" stop-color="#3B5998"/>
+    </linearGradient>
+    <linearGradient id="tb" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3451B2"/>
+      <stop offset="100%" stop-color="#2D4A85"/>
+    </linearGradient>
+  </defs>
+  <!-- Browser frame -->
+  <rect x="4" y="4" width="72" height="58" rx="12" fill="url(#bar)"/>
+  <!-- Title bar -->
+  <rect x="4" y="4" width="72" height="18" rx="12" fill="url(#tb)"/>
+  <rect x="4" y="16" width="72" height="6" fill="#2D4A85"/>
+  <!-- macOS dots -->
+  <circle cx="16" cy="13" r="2.5" fill="#ff5f57"/>
+  <circle cx="24" cy="13" r="2.5" fill="#febc2e"/>
+  <circle cx="32" cy="13" r="2.5" fill="#28c840"/>
+  <!-- Address bar hint -->
+  <rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/>
+  <!-- Left eye -->
+  <circle cx="27" cy="38" r="5" fill="#fff"/>
+  <circle cx="28.5" cy="37" r="2" fill="#2D4A85"/>
+  <circle cx="29.5" cy="36" r=".8" fill="#fff"/>
+  <!-- Right eye -->
+  <circle cx="53" cy="38" r="5" fill="#fff"/>
+  <circle cx="54.5" cy="37" r="2" fill="#2D4A85"/>
+  <circle cx="55.5" cy="36" r=".8" fill="#fff"/>
+  <!-- Smile -->
+  <path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>
