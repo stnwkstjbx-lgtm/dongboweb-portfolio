@@ -11,6 +11,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 64' fill='none'><rect x='4' y='4' width='64' height='52' rx='14' fill='%233B5998'/><rect x='4' y='4' width='64' height='16' rx='14' fill='%232D4A85'/><rect x='4' y='14' width='64' height='6' fill='%232D4A85'/><circle cx='16' cy='12' r='2.8' fill='%23fff' opacity='.3'/><circle cx='24' cy='12' r='2.8' fill='%23fff' opacity='.3'/><circle cx='32' cy='12' r='2.8' fill='%23fff' opacity='.3'/><circle cx='28' cy='38' r='4' fill='%23fff'/><circle cx='44' cy='38' r='4' fill='%23fff'/><path d='M33 46C34 48 38 48 39 46' stroke='%23fff' stroke-width='2' stroke-linecap='round'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -54,7 +55,8 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
   0%{clip-path:inset(0 0 0 0)}
   100%{clip-path:inset(0 0 100% 0)}
 }
-.preloader-logo{font-size:15px;font-weight:600;letter-spacing:.02em;color:var(--fg);opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s var(--ease)}
+.preloader-logo{font-size:15px;font-weight:600;letter-spacing:.02em;color:var(--fg);opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s var(--ease);display:flex;align-items:center;gap:10px}
+.preloader-logo-icon{width:28px;height:auto}
 .preloader-logo.in{opacity:1;transform:translateY(0)}
 .preloader-line{width:120px;height:1px;background:var(--border);position:relative;overflow:hidden;opacity:0;transition:opacity .4s ease .15s}
 .preloader-line.in{opacity:1}
@@ -66,7 +68,8 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 /* ===== NAV ===== */
 .nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;background:transparent;transition:padding .5s var(--ease),background .4s,backdrop-filter .4s}
 .nav.scrolled{padding:16px 40px;background:rgba(250,250,250,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
-.nav-logo{font-size:15px;font-weight:600;letter-spacing:-.01em;cursor:none}
+.nav-logo{font-size:15px;font-weight:600;letter-spacing:-.01em;cursor:none;display:flex;align-items:center;gap:8px}
+.nav-logo-icon{width:22px;height:auto;flex-shrink:0}
 .nav-right{display:flex;gap:6px;align-items:center}
 .nav-link{font-size:13px;font-weight:400;color:var(--dim);padding:8px 16px;border-radius:8px;position:relative;overflow:hidden;transition:color .3s;cursor:none;letter-spacing:-.005em}
 .nav-link::after{content:'';position:absolute;bottom:6px;left:16px;right:16px;height:1px;background:var(--fg);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
@@ -331,7 +334,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 
 <!-- Preloader -->
 <div class="preloader" id="preloader">
-  <div class="preloader-logo" id="preLogo">DONGBO WEB</div>
+  <div class="preloader-logo" id="preLogo"><svg class="preloader-logo-icon" viewBox="0 0 72 64" fill="none"><rect x="4" y="4" width="64" height="52" rx="14" fill="#3B5998"/><rect x="4" y="4" width="64" height="16" rx="14" fill="#2D4A85"/><rect x="4" y="14" width="64" height="6" fill="#2D4A85"/><circle cx="16" cy="12" r="2.8" fill="#fff" opacity=".3"/><circle cx="24" cy="12" r="2.8" fill="#fff" opacity=".3"/><circle cx="32" cy="12" r="2.8" fill="#fff" opacity=".3"/><circle cx="28" cy="38" r="4" fill="#fff"/><circle cx="44" cy="38" r="4" fill="#fff"/><path d="M33 46C34 48 38 48 39 46" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>DONGBO WEB</div>
   <div class="preloader-line" id="preLine"><div class="preloader-fill" id="preFill"></div></div>
 </div>
 
@@ -345,7 +348,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 
 <!-- Nav -->
 <nav class="nav" role="navigation" aria-label="메인 내비게이션">
-  <a href="#" class="nav-logo" data-cursor="hover">DONGBO WEB</a>
+  <a href="#" class="nav-logo" data-cursor="hover"><svg class="nav-logo-icon" viewBox="0 0 72 64" fill="none"><rect x="4" y="4" width="64" height="52" rx="14" fill="#3B5998"/><rect x="4" y="4" width="64" height="16" rx="14" fill="#2D4A85"/><rect x="4" y="14" width="64" height="6" fill="#2D4A85"/><circle cx="16" cy="12" r="2.8" fill="#fff" opacity=".3"/><circle cx="24" cy="12" r="2.8" fill="#fff" opacity=".3"/><circle cx="32" cy="12" r="2.8" fill="#fff" opacity=".3"/><circle cx="28" cy="38" r="4" fill="#fff"/><circle cx="44" cy="38" r="4" fill="#fff"/><path d="M33 46C34 48 38 48 39 46" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>DONGBO WEB</a>
   <div class="nav-right">
     <a href="#why" class="nav-link" data-cursor="hover">Why</a>
     <a href="#work" class="nav-link" data-cursor="hover">Work</a>
