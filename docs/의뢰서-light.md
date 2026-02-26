@@ -24,6 +24,7 @@
 - [ ] 소요 — 필라테스: https://dongboweb-soyo.vercel.app
 - [ ] 뤼느 — 헤어살롱: https://dongboweb-noir-light.vercel.app
 - [ ] 프라임 — 수학학원: https://dongboweb-prime.vercel.app
+- [ ] 모카 — 커피전문점: https://dongboweb-mocha.vercel.app
 
 > 업종이 달라도 괜찮습니다. "이 느낌이 좋다" 정도로만 알려주세요.
 > 외부 사이트 링크도 환영합니다.
