@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>썸네일 — 베이커리 카페 홈페이지 이렇게 만들었습니다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter','Noto Sans KR',sans-serif;background:#FAFAFA;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:24px}
+.dl-btn{padding:10px 28px;background:#3B5998;color:#fff;border:none;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px;transition:all .2s}
+.dl-btn:hover{background:#2D4A85;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px}
+.dl-btn.done{background:#28c840}
+.thumb{width:600px;height:315px;overflow:hidden;position:relative;display:flex;align-items:flex-end;padding:36px;background:linear-gradient(135deg,#FFFFFF 0%,#EDE9F6 100%)}
+.thumb::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.02) 1px,transparent 1px);background-size:36px 36px}
+.thumb-content{position:relative;z-index:1}
+.thumb-label{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#3B5998;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.thumb-label::before{content:'';width:16px;height:1px;background:#3B5998}
+.thumb-title{font-size:24px;font-weight:700;color:#0A0A0A;line-height:1.35}
+.thumb-title span{color:#888;font-weight:400}
+.thumb-brand{position:absolute;top:24px;right:28px;display:flex;align-items:center;gap:8px;z-index:1}
+.thumb-brand svg{width:22px;height:auto}
+.thumb-brand span{font-size:9px;font-weight:600;color:#AAA;letter-spacing:.12em}
+.thumb-accent{position:absolute;top:-25%;right:-8%;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.08),transparent 65%);filter:blur(40px)}
+.thumb-accent2{position:absolute;bottom:-15%;left:8%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.06),transparent 65%);filter:blur(35px)}
+.thumb-line{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#3B5998,#5A7DC0,transparent)}
+</style>
+</head>
+<body>
+
+<div class="thumb" id="thumb">
+  <div class="thumb-accent"></div><div class="thumb-accent2"></div><div class="thumb-line"></div>
+  <div class="thumb-brand"><svg viewBox="0 0 80 68" fill="none" width="22"><rect x="4" y="4" width="72" height="58" rx="12" fill="#3B5998"/><rect x="4" y="4" width="72" height="18" rx="12" fill="#2D4A85"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>DONGBO WEB</span></div>
+  <div class="thumb-content">
+    <div class="thumb-label">Portfolio</div>
+    <div class="thumb-title">베이커리 카페 홈페이지<br><span>밀도 — Light Template</span></div>
+  </div>
+</div>
+
+<button class="dl-btn" onclick="download()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드 (1200x630)</button>
+
+<script>
+function download(){
+  var btn=document.querySelector('.dl-btn');
+  btn.textContent='생성 중...';
+  html2canvas(document.getElementById('thumb'),{scale:2,backgroundColor:null,useCORS:true,logging:false}).then(function(c){
+    var a=document.createElement('a');
+    a.download='dongboweb-thumb-mildo-portfolio.png';
+    a.href=c.toDataURL('image/png');
+    a.click();
+    btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> 완료!';
+    btn.classList.add('done');
+    setTimeout(function(){btn.classList.remove('done');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG 다운로드 (1200x630)';},2000);
+  });
+}
+</script>
+</body></html>
