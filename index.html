@@ -233,35 +233,19 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 
 /* ===== PRICING ===== */
 .pricing-section{padding:160px 40px;max-width:1400px;margin:0 auto}
-.pricing-header{margin-bottom:72px;text-align:center}
+.pricing-header{margin-bottom:72px}
 .pricing-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:20px;text-transform:uppercase}
 .pricing-title{font-size:clamp(32px,4.5vw,56px);font-weight:700;letter-spacing:-.04em;margin-bottom:16px;word-break:keep-all;line-height:1.15}
-.pricing-title .accent{color:#4A6CF7}
-.pricing-desc{font-size:16px;color:var(--dim);max-width:560px;margin:0 auto 36px;line-height:1.7;letter-spacing:-.005em}
-/* 비교 바 3컬럼 */
-.pricing-vs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;max-width:780px;margin:0 auto 20px;border-radius:var(--radius);overflow:hidden;font-size:14px;line-height:1.5}
-.pricing-vs-cell{padding:18px 20px;text-align:center}
-.pricing-vs-cell:first-child{background:var(--surface);border:1px solid var(--border);border-right:none;border-radius:var(--radius) 0 0 var(--radius);color:var(--dim)}
-.pricing-vs-cell:first-child .val{text-decoration:line-through}
-.pricing-vs-cell:nth-child(2){background:var(--fg);color:var(--bg)}
-.pricing-vs-cell:last-child{background:var(--fg);color:var(--bg);border-radius:0 var(--radius) var(--radius) 0;border-left:1px solid rgba(255,255,255,.1)}
-.pricing-vs-cell .lbl{font-size:12px;opacity:.7;margin-bottom:4px}
-.pricing-vs-cell .val{font-size:20px;font-weight:700;display:block}
-.pricing-vs-cell:nth-child(2) .val{color:#4A6CF7}
-.pricing-vs-cell:last-child .val{color:#6EE7B7}
-.pricing-sub{text-align:center;font-size:13px;color:var(--dim);letter-spacing:-.005em;line-height:1.6}
-.pricing-sub strong{color:var(--fg);font-weight:600}
+.pricing-desc{font-size:16px;color:var(--dim);max-width:520px;line-height:1.7;letter-spacing:-.005em}
 /* 카드 그리드 */
 .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px}
 /* 카드 공통 */
 .pricing-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:48px 40px;cursor:none;position:relative;transition:background .4s,color .4s,border-color .4s,transform .4s var(--ease),box-shadow .4s}
 .pricing-card:hover,.pricing-card.active{background:var(--fg);color:var(--bg);border-color:var(--fg);transform:translateY(-8px);box-shadow:0 28px 80px rgba(0,0,0,.22)}
-/* hover/active 내부 색상 전환 */
 .pricing-card:hover .pricing-tier-name,.pricing-card.active .pricing-tier-name{color:rgba(255,255,255,.5)}
 .pricing-card:hover .pricing-amount span,.pricing-card.active .pricing-amount span{color:rgba(255,255,255,.5)}
 .pricing-card:hover .pricing-label-once,.pricing-card.active .pricing-label-once{color:rgba(255,255,255,.4)}
-.pricing-card:hover .pricing-monthly,.pricing-card.active .pricing-monthly{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.1)}
-.pricing-card:hover .pricing-monthly strong,.pricing-card.active .pricing-monthly strong{color:#fff}
+.pricing-card:hover .pricing-plus,.pricing-card.active .pricing-plus{color:rgba(255,255,255,.5)}
 .pricing-card:hover .pricing-card-desc,.pricing-card.active .pricing-card-desc{color:rgba(255,255,255,.6)}
 .pricing-card:hover .pricing-feat,.pricing-card.active .pricing-feat{color:rgba(255,255,255,.85);border-bottom-color:rgba(255,255,255,.1)}
 .pricing-card:hover .pricing-feat.dim,.pricing-card.active .pricing-feat.dim{color:rgba(255,255,255,.35)}
@@ -269,26 +253,16 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 .pricing-card:hover .pricing-check svg,.pricing-card.active .pricing-check svg{stroke:#fff}
 .pricing-card:hover .pricing-btn,.pricing-card.active .pricing-btn{background:#fff;color:var(--fg);border-color:#fff;font-weight:600}
 .pricing-card:hover .pricing-feat .star,.pricing-card.active .pricing-feat .star{color:#8BA4FF}
-.pricing-card:hover .pricing-cost-table,.pricing-card.active .pricing-cost-table{border-color:rgba(255,255,255,.1)}
-.pricing-card:hover .pricing-cost-row,.pricing-card.active .pricing-cost-row{color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.06)}
-.pricing-card:hover .pricing-cost-row .cv,.pricing-card.active .pricing-cost-row .cv{color:rgba(255,255,255,.8)}
-.pricing-card:hover .pricing-cost-row.highlight,.pricing-card.active .pricing-cost-row.highlight{color:rgba(255,255,255,.6)}
-.pricing-card:hover .pricing-cost-row.highlight .cv,.pricing-card.active .pricing-cost-row.highlight .cv{color:#6EE7B7}
 /* BEST 뱃지 */
 .pricing-card.featured::before{content:'BEST';position:absolute;top:20px;right:20px;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.06em;background:#4A6CF7;color:#fff;padding:5px 14px;border-radius:20px;box-shadow:0 0 20px rgba(74,108,247,.4)}
-/* 카드 내부 요소 */
+/* 카드 내부 */
 .pricing-tier-name{font-family:var(--font-mono);font-size:11px;color:var(--dim);letter-spacing:.1em;margin-bottom:24px;transition:color .4s}
 .pricing-amount{font-size:56px;font-weight:700;letter-spacing:-.05em;margin-bottom:2px}
 .pricing-amount span{font-size:18px;font-weight:400;color:var(--dim);margin-left:2px;transition:color .4s}
-.pricing-label-once{font-family:var(--font-mono);font-size:11px;color:var(--dim);letter-spacing:.04em;margin-bottom:12px;transition:color .4s}
-.pricing-monthly{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--fg3);padding:8px 16px;background:var(--surface2,rgba(0,0,0,.03));border:1px solid var(--border);border-radius:8px;margin-bottom:20px;transition:all .4s}
-.pricing-monthly strong{font-weight:600;color:var(--fg);transition:color .4s}
-.pricing-cost-table{margin-bottom:20px;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .4s}
-.pricing-cost-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--dim);padding:8px 14px;border-bottom:1px solid var(--border2);transition:color .4s,border-color .4s}
-.pricing-cost-row:last-child{border-bottom:none}
-.pricing-cost-row .cv{font-weight:600;color:var(--fg2);transition:color .4s}
-.pricing-cost-row.highlight{background:rgba(74,108,247,.03)}
-.pricing-cost-row.highlight .cv{color:#4A6CF7;font-weight:700}
+.pricing-label-once{font-family:var(--font-mono);font-size:11px;color:var(--dim);letter-spacing:.04em;margin-bottom:6px;transition:color .4s}
+.pricing-plus{font-size:14px;color:var(--dim);margin-bottom:24px;letter-spacing:-.005em;transition:color .4s}
+.pricing-plus strong{font-weight:600;color:var(--fg)}
+.pricing-card:hover .pricing-plus strong,.pricing-card.active .pricing-plus strong{color:#fff}
 .pricing-card-desc{font-size:14px;color:var(--dim);line-height:1.7;margin-bottom:36px;letter-spacing:-.005em;word-break:keep-all;transition:color .4s}
 .pricing-features{margin-bottom:36px}
 .pricing-feat{font-size:13px;color:var(--fg2);padding:11px 0;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:12px;letter-spacing:-.005em;transition:color .4s,border-color .4s}
@@ -298,15 +272,9 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 .pricing-check svg{width:8px;height:8px;transition:stroke .3s}
 .pricing-btn{display:block;text-align:center;font-size:14px;font-weight:500;padding:16px;border-radius:12px;border:1px solid var(--border);cursor:none;transition:all .3s var(--ease)}
 .pricing-btn:hover{background:var(--fg);color:var(--surface);border-color:var(--fg);transform:translateY(-2px)}
-/* 운영비 포함 안내 */
-.pricing-included{margin-top:48px;text-align:center}
-.pricing-included-title{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--dim);margin-bottom:24px;text-transform:uppercase}
-.pricing-included-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:800px;margin:0 auto}
-.pricing-included-item{text-align:center;padding:24px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
-.pricing-included-icon{width:32px;height:32px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(74,108,247,.08)}
-.pricing-included-icon svg{width:16px;height:16px;stroke:#4A6CF7;fill:none;stroke-width:1.5}
-.pricing-included-name{font-size:13px;font-weight:600;margin-bottom:4px;letter-spacing:-.005em}
-.pricing-included-desc{font-size:12px;color:var(--dim);line-height:1.5;letter-spacing:-.005em}
+/* 하단 안내 */
+.pricing-footer{margin-top:40px;text-align:center;font-size:13px;color:var(--dim);line-height:1.7;letter-spacing:-.005em}
+.pricing-footer strong{color:var(--fg);font-weight:600}
 
 /* ===== CTA ===== */
 .cta-section{padding:200px 40px;max-width:1400px;margin:0 auto;text-align:center}
@@ -377,11 +345,6 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
   .marquee-wrap{padding:28px 0}
   .process-section{padding:100px 20px}.process-grid{grid-template-columns:1fr}
   .pricing-section{padding:100px 20px}.pricing-grid{grid-template-columns:1fr;margin-top:40px}
-  .pricing-vs{grid-template-columns:1fr;max-width:100%}
-  .pricing-vs-cell:first-child{border-right:1px solid var(--border);border-radius:var(--radius) var(--radius) 0 0}
-  .pricing-vs-cell:nth-child(2){border-radius:0}
-  .pricing-vs-cell:last-child{border-radius:0 0 var(--radius) var(--radius);border-left:none;border-top:1px solid rgba(255,255,255,.1)}
-  .pricing-included-grid{grid-template-columns:1fr;gap:12px;max-width:100%}
   .cta-section{padding:100px 20px}
   .footer{padding:24px 20px;grid-template-columns:1fr;gap:12px;text-align:center}.footer-right{text-align:center}
   .float-top,.float-chat{cursor:default}
@@ -607,25 +570,15 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 <section class="pricing-section" id="pricing">
   <div class="pricing-header sr">
     <div class="pricing-eyebrow">Pricing</div>
-    <h2 class="pricing-title">제작비는 <span class="accent">딱 한 번</span>,<br>그 다음은 월 <span class="accent">2만원</span>.</h2>
-    <p class="pricing-desc">처음 한 번만 제작비를 내고, 이후엔 월 19,900원이면 끝. 호스팅, 검색 등록, 유지보수까지 전부 포함. 숨은 비용 없이, 보이는 그대로입니다.</p>
-    <div class="pricing-vs">
-      <div class="pricing-vs-cell"><span class="lbl">일반 외주</span><span class="val">300~500만원</span></div>
-      <div class="pricing-vs-cell"><span class="lbl">동보웹 첫해</span><span class="val">39만원~</span></div>
-      <div class="pricing-vs-cell"><span class="lbl">2년차부터</span><span class="val">월 19,900원</span></div>
-    </div>
-    <p class="pricing-sub">제작비 <strong>1회</strong>만 납부 → 이후 운영비 <strong>월 19,900원</strong>만 유지</p>
+    <h2 class="pricing-title">제작비 한 번,<br>유지비 월 19,900원.</h2>
+    <p class="pricing-desc">호스팅, 검색 등록, 수정 요청까지 전부 포함.<br>숨은 비용 없이, 보이는 그대로입니다.</p>
   </div>
   <div class="pricing-grid">
     <div class="pricing-card sr sr-d1" data-cursor="hover">
       <div class="pricing-tier-name">LIGHT</div>
       <div class="pricing-amount">15<span>만원</span></div>
       <div class="pricing-label-once">1회 제작비</div>
-      <div class="pricing-monthly">+ 월 <strong>19,900원</strong> (운영비)</div>
-      <div class="pricing-cost-table">
-        <div class="pricing-cost-row"><span>첫해 총비용</span><span class="cv">약 39만원</span></div>
-        <div class="pricing-cost-row highlight"><span>2년차부터</span><span class="cv">월 19,900원만</span></div>
-      </div>
+      <div class="pricing-plus">+ 월 <strong>19,900원</strong></div>
       <div class="pricing-card-desc">검색했을 때, "여기 괜찮은데?" 그 한마디면 성공입니다.</div>
       <div class="pricing-features">
         <div class="pricing-feat"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>업종에 딱 맞는 프리미엄 디자인</div>
@@ -640,11 +593,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
       <div class="pricing-tier-name">BASIC</div>
       <div class="pricing-amount">25<span>만원</span></div>
       <div class="pricing-label-once">1회 제작비</div>
-      <div class="pricing-monthly">+ 월 <strong>19,900원</strong> (운영비)</div>
-      <div class="pricing-cost-table">
-        <div class="pricing-cost-row"><span>첫해 총비용</span><span class="cv">약 49만원</span></div>
-        <div class="pricing-cost-row highlight"><span>2년차부터</span><span class="cv">월 19,900원만</span></div>
-      </div>
+      <div class="pricing-plus">+ 월 <strong>19,900원</strong></div>
       <div class="pricing-card-desc">처음 본 사이트인데 북마크하게 되는 경험.</div>
       <div class="pricing-features">
         <div class="pricing-feat dim"><span class="pricing-check"><svg viewBox="0 0 8 6" fill="none" stroke="#888" stroke-width="1.5"><path d="M1 3l2 2 4-4"/></svg></span>Light 전체 기능 포함</div>
@@ -658,27 +607,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
       <a href="#contact" class="pricing-btn" data-cursor="hover">무료 상담받기</a>
     </div>
   </div>
-  <!-- 운영비 포함 내역 -->
-  <div class="pricing-included sr sr-d3">
-    <div class="pricing-included-title">월 19,900원에 포함된 것들</div>
-    <div class="pricing-included-grid">
-      <div class="pricing-included-item">
-        <div class="pricing-included-icon"><svg viewBox="0 0 16 16"><rect x="2" y="4" width="12" height="10" rx="2"/><path d="M5 4V2.5A1.5 1.5 0 0 1 6.5 1h3A1.5 1.5 0 0 1 11 2.5V4"/><path d="M8 8v2"/></svg></div>
-        <div class="pricing-included-name">서버 + 도메인 + SSL</div>
-        <div class="pricing-included-desc">호스팅, CDN, 보안 인증서,<br>24시간 가동 보장</div>
-      </div>
-      <div class="pricing-included-item">
-        <div class="pricing-included-icon"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg></div>
-        <div class="pricing-included-name">검색 등록 + 노출 관리</div>
-        <div class="pricing-included-desc">네이버·구글 등록, 색인 관리,<br>검색 결과 제목·설명 최적화</div>
-      </div>
-      <div class="pricing-included-item">
-        <div class="pricing-included-icon"><svg viewBox="0 0 16 16"><path d="M12 8H4M8 4v8"/></svg></div>
-        <div class="pricing-included-name">유지보수 월 1회</div>
-        <div class="pricing-included-desc">사진·메뉴·가격 수정,<br>카톡 요청 시 당일~1영업일 반영</div>
-      </div>
-    </div>
-  </div>
+  <p class="pricing-footer sr sr-d3">월 <strong>19,900원</strong>에 서버 · 도메인 · SSL · 검색 등록 · 유지보수(월 1회) 전부 포함</p>
 </section>
 
 <!-- ===== CTA ===== -->
