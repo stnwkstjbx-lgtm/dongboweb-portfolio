@@ -245,6 +245,9 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 .pricing-compare .old{text-decoration:line-through;opacity:.5}
 .pricing-compare .vs{opacity:.3;font-size:12px;letter-spacing:.06em}
 .pricing-compare .new{font-weight:700;color:#4A6CF7}
+/* 운영비 안내 한줄 */
+.pricing-note{margin-top:16px;font-size:13px;color:var(--dim);letter-spacing:-.005em;line-height:1.6}
+.pricing-note strong{color:var(--fg);font-weight:600}
 .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .pricing-label-once{font-family:var(--font-mono);font-size:11px;color:var(--dim);letter-spacing:.04em;margin-top:-4px;margin-bottom:8px}
 .pricing-price-sub{font-size:12px;color:var(--dim);margin-top:4px;margin-bottom:4px;letter-spacing:-.005em}
@@ -261,24 +264,22 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 .pricing-ops-item-title{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--fg);margin-bottom:12px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
 .pricing-ops-item-title svg{width:14px;height:14px;flex-shrink:0}
 .pricing-ops-feat{font-size:13px;color:var(--fg3);line-height:1.65;padding:4px 0;letter-spacing:-.005em}
-.pricing-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:48px 40px;cursor:none;transition:border-color .4s,transform .4s var(--ease),box-shadow .4s}
-.pricing-card:hover{border-color:var(--dim2);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.07)}
-/* Basic featured 카드 — 다크 반전 */
-.pricing-card.featured{background:var(--fg);color:var(--bg);border:none;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.15)}
-.pricing-card.featured:hover{transform:translateY(-8px);box-shadow:0 28px 80px rgba(0,0,0,.22),0 0 0 1px rgba(74,108,247,.15)}
+.pricing-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:48px 40px;cursor:none;position:relative;transition:background .4s,color .4s,border-color .4s,transform .4s var(--ease),box-shadow .4s}
+.pricing-card:hover,.pricing-card:active,.pricing-card.active{background:var(--fg);color:var(--bg);border-color:var(--fg);transform:translateY(-8px);box-shadow:0 28px 80px rgba(0,0,0,.22)}
+/* hover/active 상태 내부 요소 색상 전환 */
+.pricing-card:hover .pricing-tier-name,.pricing-card:active .pricing-tier-name,.pricing-card.active .pricing-tier-name{color:rgba(255,255,255,.5)}
+.pricing-card:hover .pricing-price span,.pricing-card:active .pricing-price span,.pricing-card.active .pricing-price span{color:rgba(255,255,255,.5)}
+.pricing-card:hover .pricing-label-once,.pricing-card:active .pricing-label-once,.pricing-card.active .pricing-label-once{color:rgba(255,255,255,.4)}
+.pricing-card:hover .pricing-price-sub,.pricing-card:active .pricing-price-sub,.pricing-card.active .pricing-price-sub{color:rgba(255,255,255,.4)}
+.pricing-card:hover .pricing-card-desc,.pricing-card:active .pricing-card-desc,.pricing-card.active .pricing-card-desc{color:rgba(255,255,255,.6)}
+.pricing-card:hover .pricing-feat,.pricing-card:active .pricing-feat,.pricing-card.active .pricing-feat{color:rgba(255,255,255,.85);border-bottom-color:rgba(255,255,255,.1)}
+.pricing-card:hover .pricing-feat.dim,.pricing-card:active .pricing-feat.dim,.pricing-card.active .pricing-feat.dim{color:rgba(255,255,255,.35)}
+.pricing-card:hover .pricing-check,.pricing-card:active .pricing-check,.pricing-card.active .pricing-check{background:rgba(255,255,255,.2)}
+.pricing-card:hover .pricing-check svg,.pricing-card:active .pricing-check svg,.pricing-card.active .pricing-check svg{stroke:#fff}
+.pricing-card:hover .pricing-btn,.pricing-card:active .pricing-btn,.pricing-card.active .pricing-btn{background:#fff;color:var(--fg);border-color:#fff;font-weight:600}
+.pricing-card:hover .pricing-feat .star,.pricing-card:active .pricing-feat .star,.pricing-card.active .pricing-feat .star{color:#8BA4FF}
+/* BEST 뱃지 — Basic 카드 */
 .pricing-card.featured::before{content:'BEST';position:absolute;top:20px;right:20px;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.06em;background:#4A6CF7;color:#fff;padding:5px 14px;border-radius:20px;box-shadow:0 0 20px rgba(74,108,247,.4)}
-.pricing-card.featured .pricing-tier-name{color:rgba(255,255,255,.5)}
-.pricing-card.featured .pricing-price span{color:rgba(255,255,255,.5)}
-.pricing-card.featured .pricing-label-once{color:rgba(255,255,255,.4)}
-.pricing-card.featured .pricing-price-sub{color:rgba(255,255,255,.4)}
-.pricing-card.featured .pricing-card-desc{color:rgba(255,255,255,.6)}
-.pricing-card.featured .pricing-feat{color:rgba(255,255,255,.85);border-bottom-color:rgba(255,255,255,.1)}
-.pricing-card.featured .pricing-feat.dim{color:rgba(255,255,255,.35)}
-.pricing-card.featured .pricing-check{background:rgba(255,255,255,.15)}
-.pricing-card.featured .pricing-feat.dim .pricing-check{background:rgba(255,255,255,.08)}
-.pricing-card.featured:hover .pricing-check{background:rgba(255,255,255,.3)}
-.pricing-card.featured .pricing-check svg{stroke:rgba(255,255,255,.6)}
-.pricing-card.featured:hover .pricing-check svg{stroke:#fff}
 .pricing-tier-name{font-family:var(--font-mono);font-size:11px;color:var(--dim);letter-spacing:.1em;margin-bottom:24px}
 .pricing-price{font-size:56px;font-weight:700;letter-spacing:-.05em;margin-bottom:4px}
 .pricing-price span{font-size:18px;font-weight:400;color:var(--dim);margin-left:2px}
@@ -288,13 +289,9 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 .pricing-feat.dim{color:var(--dim2)}
 .pricing-feat .star{color:#4A6CF7;font-size:11px;margin-right:-4px}
 .pricing-check{width:16px;height:16px;border-radius:50%;background:var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .3s}
-.pricing-card:hover .pricing-check{background:var(--fg)}
 .pricing-check svg{width:8px;height:8px;transition:stroke .3s}
-.pricing-card:hover .pricing-check svg{stroke:var(--surface)}
 .pricing-btn{display:block;text-align:center;font-size:14px;font-weight:500;padding:16px;border-radius:12px;border:1px solid var(--border);cursor:none;transition:all .3s var(--ease)}
 .pricing-btn:hover{background:var(--fg);color:var(--surface);border-color:var(--fg);transform:translateY(-2px)}
-.pricing-card.featured .pricing-btn{background:#fff;color:var(--fg);border-color:#fff;font-weight:600}
-.pricing-card.featured .pricing-btn:hover{background:rgba(255,255,255,.85);transform:translateY(-2px)}
 
 /* ===== CTA ===== */
 .cta-section{padding:200px 40px;max-width:1400px;margin:0 auto;text-align:center}
@@ -598,6 +595,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
       <span class="vs">VS</span>
       <span class="new">동보웹 15만원~</span>
     </div>
+    <p class="pricing-note">제작비 <strong>1회</strong> + 월 운영비 <strong>19,900원</strong> (호스팅·검색등록·유지보수 포함)</p>
   </div>
   <div class="pricing-grid">
     <div class="pricing-card sr sr-d1" data-cursor="hover">
@@ -911,6 +909,21 @@ if(whySec&&floatChat){
     floatChat.classList.toggle('show',e.isIntersecting||e.boundingClientRect.top<0);
   })},{threshold:0});
   fcObs.observe(whySec);
+}
+
+/* ===== PRICING CARD TOUCH ===== */
+var pCards=document.querySelectorAll('.pricing-card');
+if(!isHover){
+  pCards.forEach(function(card){
+    card.addEventListener('click',function(e){
+      var wasActive=card.classList.contains('active');
+      pCards.forEach(function(c){c.classList.remove('active')});
+      if(!wasActive){card.classList.add('active');e.preventDefault();}
+    });
+  });
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('.pricing-card'))pCards.forEach(function(c){c.classList.remove('active')});
+  });
 }
 
 /* ===== ASSET PROTECTION ===== */
