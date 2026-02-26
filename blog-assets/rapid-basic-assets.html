@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>래피드 Basic 상세페이지 이미지 에셋</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter','Noto Sans KR',sans-serif;background:#FAFAFA;color:#0A0A0A;padding:48px;min-height:100vh}
+h1{font-size:28px;font-weight:700;margin-bottom:4px}
+p.guide{font-size:13px;color:#888;margin-bottom:56px}
+p.guide strong{color:#3B5998}
+.section{margin-bottom:72px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-head-left h2{font-size:13px;font-weight:600;color:#555;letter-spacing:.12em;text-transform:uppercase}
+.section-head-left .size{font-size:11px;color:#AAA;font-family:'DM Mono',monospace;margin-top:4px}
+.dl-btn{padding:8px 20px;background:#3B5998;color:#fff;border:none;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.03em;transition:all .2s;display:flex;align-items:center;gap:6px}
+.dl-btn:hover{background:#2D4A85;transform:translateY(-1px)}
+.dl-btn.done{background:#28c840}
+.asset-wrap{display:inline-block;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);border:1px solid #E2E2E2}
+
+.asset{overflow:hidden;position:relative}
+.asset::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.015) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:1}
+
+/* ===== 1. 히어로 860×360 ===== */
+.hero-banner{width:860px;height:360px;background:linear-gradient(160deg,#FFFFFF 0%,#F0F2F8 100%);display:flex;align-items:center;justify-content:center;padding:0 72px}
+.hero-banner .glow1{position:absolute;top:-30%;right:-5%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.07),transparent 65%);filter:blur(50px)}
+.hero-banner .glow2{position:absolute;bottom:-40%;left:5%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.05),transparent 65%);filter:blur(40px)}
+.hero-inner{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
+.hero-inner .logo svg{width:48px;height:auto;filter:drop-shadow(0 2px 12px rgba(59,89,152,.12))}
+.hero-inner .eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;color:#3B5998;text-transform:uppercase}
+.hero-inner h3{font-size:32px;font-weight:800;color:#0A0A0A;line-height:1.35;letter-spacing:-.02em}
+.hero-inner h3 em{font-style:normal;color:#3B5998}
+.hero-inner .sub{font-size:14px;color:#888;line-height:1.6}
+.hero-inner .sub strong{color:#555}
+.hero-bottom-line{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#3B5998,#5A7DC0,transparent);z-index:2}
+
+/* ===== 2. Light vs Basic 비교 860×380 ===== */
+.compare{width:860px;height:380px;background:#FFFFFF;display:flex;align-items:stretch;padding:40px 48px;gap:32px}
+.compare-col{flex:1;border-radius:16px;padding:28px;display:flex;flex-direction:column;position:relative;z-index:2}
+.compare-light{background:#F5F5F5;border:1px solid #E8E8E8}
+.compare-basic{background:linear-gradient(160deg,#F0F2F8,#E8EDF6);border:2px solid #3B5998}
+.compare-col .tag{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
+.compare-light .tag{color:#AAA}
+.compare-basic .tag{color:#3B5998}
+.compare-col h4{font-size:17px;font-weight:700;margin-bottom:4px;line-height:1.3}
+.compare-light h4{color:#888}
+.compare-basic h4{color:#0A0A0A}
+.compare-col .price-tag{font-size:20px;font-weight:800;margin-bottom:12px;font-family:'DM Mono',monospace}
+.compare-light .price-tag{color:#AAA}
+.compare-basic .price-tag{color:#3B5998}
+.compare-col ul{list-style:none;display:flex;flex-direction:column;gap:6px;flex:1}
+.compare-col li{font-size:11.5px;display:flex;align-items:center;gap:7px;line-height:1.5}
+.compare-light li{color:#AAA}
+.compare-light li::before{content:'·';font-size:14px;color:#CCC;width:14px;text-align:center;flex-shrink:0}
+.compare-basic li{color:#555}
+.compare-basic li::before{content:'✓';font-size:10px;color:#3B5998;font-weight:700;width:14px;text-align:center;flex-shrink:0}
+.compare-basic li.highlight{color:#0A0A0A;font-weight:600}
+.compare-basic li.highlight::before{color:#3B5998}
+.badge-best{position:absolute;top:-1px;right:20px;background:#3B5998;color:#fff;font-size:9px;font-weight:700;letter-spacing:.1em;padding:5px 14px;border-radius:0 0 8px 8px;text-transform:uppercase}
+
+/* ===== 3. 기능 하이라이트 860×240 ===== */
+.features{width:860px;height:240px;background:linear-gradient(160deg,#FFFFFF,#F0F2F8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:0 48px}
+.feat-title{font-size:10px;font-weight:600;letter-spacing:.2em;color:#3B5998;text-transform:uppercase;position:relative;z-index:2}
+.feat-row{display:flex;align-items:center;justify-content:center;gap:36px;position:relative;z-index:2}
+.feat-item{display:flex;flex-direction:column;align-items:center;gap:10px}
+.feat-icon{width:48px;height:48px;border-radius:12px;background:#fff;border:1px solid #E8EDF0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.feat-icon svg{width:22px;height:22px;color:#3B5998}
+.feat-label{font-size:11px;font-weight:600;color:#0A0A0A;text-align:center;line-height:1.3}
+.feat-sub{font-size:9px;color:#AAA;text-align:center;margin-top:-4px}
+.feat-sep{width:1px;height:40px;background:linear-gradient(transparent,#E2E2E2,transparent)}
+
+/* ===== 4. 프로세스 860×280 ===== */
+.process{width:860px;height:280px;background:#FFFFFF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:0 60px}
+.process-title{font-size:10px;font-weight:600;letter-spacing:.2em;color:#3B5998;text-transform:uppercase;position:relative;z-index:2}
+.process-steps{display:flex;align-items:flex-start;gap:0;position:relative;z-index:2;width:100%}
+.step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;position:relative}
+.step-num{width:36px;height:36px;border-radius:50%;background:#F0F2F8;border:1px solid #D8DEF0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#3B5998;font-family:'DM Mono',monospace}
+.step-name{font-size:13px;font-weight:700;color:#0A0A0A}
+.step-desc{font-size:10px;color:#888;line-height:1.4;max-width:120px}
+.step-line{position:absolute;top:18px;left:calc(50% + 24px);width:calc(100% - 48px);height:1px;background:#E2E2E2}
+.step:last-child .step-line{display:none}
+
+/* ===== 5. 구성 스펙 860×400 ===== */
+.specs{width:860px;height:400px;background:linear-gradient(160deg,#FFFFFF,#F0F2F8);display:flex;align-items:center;padding:0 56px;gap:48px}
+.specs-left{flex:0 0 280px;position:relative;z-index:2}
+.specs-left .eyebrow{font-size:9px;font-weight:600;letter-spacing:.18em;color:#3B5998;text-transform:uppercase;margin-bottom:10px}
+.specs-left h4{font-size:26px;font-weight:800;color:#0A0A0A;line-height:1.3;letter-spacing:-.01em;margin-bottom:6px}
+.specs-left .price-row{display:flex;align-items:baseline;gap:4px;margin-bottom:16px}
+.specs-left .price-row .won{font-size:32px;font-weight:800;color:#3B5998;font-family:'DM Mono',monospace;letter-spacing:-.02em}
+.specs-left .price-row span{font-size:14px;color:#888}
+.specs-left .note{font-size:11px;color:#AAA;line-height:1.5}
+.specs-right{flex:1;position:relative;z-index:2;display:flex;flex-direction:column;gap:7px}
+.spec-row{display:flex;align-items:center;gap:10px;font-size:12px;color:#555}
+.spec-row .check{width:20px;height:20px;border-radius:6px;background:#F0F2F8;border:1px solid #D8DEF0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#3B5998;font-weight:700;flex-shrink:0}
+.spec-row.highlight{color:#0A0A0A;font-weight:600}
+.specs .glow{position:absolute;bottom:-30%;left:30%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.06),transparent 65%);filter:blur(50px)}
+
+/* ===== 6. 포트폴리오 안내 860×180 ===== */
+.portfolio-cta{width:860px;height:180px;background:#FFFFFF;border:1px solid #E8EDF0;display:flex;align-items:center;justify-content:space-between;padding:0 56px;position:relative}
+.portfolio-cta .glow{position:absolute;right:0;top:-30%;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.05),transparent 65%);filter:blur(40px)}
+.pf-left{position:relative;z-index:2}
+.pf-left .eyebrow{font-size:9px;font-weight:600;letter-spacing:.18em;color:#3B5998;text-transform:uppercase;margin-bottom:8px}
+.pf-left h4{font-size:20px;font-weight:700;color:#0A0A0A;margin-bottom:6px}
+.pf-left p{font-size:12px;color:#888}
+.pf-right{position:relative;z-index:2}
+.pf-url{font-size:10px;color:#AAA;font-family:'DM Mono',monospace;letter-spacing:.05em}
+
+/* ===== 7. 리스크 해소 860×260 ===== */
+.risk{width:860px;height:260px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;gap:28px;padding:0 44px}
+.risk-card{flex:1;background:#FAFAFA;border:1px solid #F0F0F0;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:2}
+.risk-card .icon{width:36px;height:36px;border-radius:10px;background:#F0F2F8;border:1px solid #D8DEF0;display:flex;align-items:center;justify-content:center;font-size:16px}
+.risk-card h5{font-size:13px;font-weight:700;color:#0A0A0A}
+.risk-card p{font-size:11px;color:#888;line-height:1.6}
+
+/* ===== 8. CTA 860×200 ===== */
+.cta{width:860px;height:200px;background:linear-gradient(160deg,#FFFFFF,#F0F2F8);display:flex;align-items:center;justify-content:center;position:relative}
+.cta .glow{position:absolute;right:10%;top:-40%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(59,89,152,.07),transparent 65%);filter:blur(50px)}
+.cta-inner{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.cta-inner h4{font-size:22px;font-weight:800;color:#0A0A0A;line-height:1.35}
+.cta-inner h4 em{font-style:normal;color:#3B5998}
+.cta-inner p{font-size:13px;color:#888}
+.cta-inner p strong{color:#3B5998;font-weight:600}
+.cta-bottom-line{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#3B5998,#5A7DC0,transparent);z-index:2}
+
+/* ===== 9. 구분선 860×48 ===== */
+.sep{width:860px;height:48px;background:transparent;display:flex;align-items:center;justify-content:center;gap:12px}
+.sep-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,#E2E2E2,transparent)}
+.sep-dot{width:4px;height:4px;border-radius:50%;background:#3B5998}
+</style>
+</head>
+<body>
+<h1>래피드 Basic 상세페이지 이미지</h1>
+<p class="guide">각 에셋의 <strong>PNG 다운로드</strong> 버튼을 클릭하세요. 860px 너비 기준입니다.</p>
+
+<!-- 1. HERO -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>1. 상단 히어로</h2><div class="size">860 × 360px</div></div>
+    <button class="dl-btn" onclick="dl(this,'.hero-banner','rapid-basic-hero',1)">PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="asset hero-banner">
+      <div class="glow1"></div><div class="glow2"></div>
+      <div class="hero-inner">
+        <div class="logo"><svg viewBox="0 0 80 68" fill="none"><defs><linearGradient id="b1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient><linearGradient id="t1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3451B2"/><stop offset="100%" stop-color="#2D4A85"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#b1)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="url(#t1)"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="29.5" cy="36" r=".8" fill="#fff"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><circle cx="55.5" cy="36" r=".8" fill="#fff"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div>
+        <div class="eyebrow">DONGBO WEB · Basic</div>
+        <h3>내 가게의 <em>격을 올리다</em></h3>
+        <div class="sub">소상공인을 위한 프리미엄 원페이지 홈페이지<br><strong>제작비 250,000원</strong> · 운영비 월 19,900원</div>
+      </div>
+      <div class="hero-bottom-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. LIGHT vs BASIC 비교 -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>2. Light vs Basic 비교</h2><div class="size">860 × 380px</div></div>
+    <button class="dl-btn" onclick="dl(this,'.compare','rapid-basic-compare',1)">PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="asset compare">
+      <div class="compare-col compare-light">
+        <div class="tag">Light · 150,000원</div>
+        <h4>핵심 정보 전달</h4>
+        <div class="price-tag">150,000원</div>
+        <ul>
+          <li>5~7개 섹션</li>
+          <li>이미지 7~10장</li>
+          <li>반응형 디자인</li>
+          <li>라이트박스 갤러리</li>
+          <li>커스텀 커서</li>
+          <li>카카오톡 문의</li>
+        </ul>
+      </div>
+      <div class="compare-col compare-basic">
+        <div class="badge-best">BEST</div>
+        <div class="tag">Basic · 250,000원</div>
+        <h4>풍부한 스토리텔링</h4>
+        <div class="price-tag">250,000원</div>
+        <ul>
+          <li class="highlight">8~12개 섹션</li>
+          <li class="highlight">이미지 11~20장</li>
+          <li>반응형 디자인</li>
+          <li>라이트박스 갤러리</li>
+          <li>커스텀 커서</li>
+          <li>카카오톡 문의</li>
+          <li class="highlight">갤러리 슬라이더 (자동 재생)</li>
+          <li class="highlight">프로그램/가격 카드</li>
+          <li class="highlight">강사·스태프 소개 섹션</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. FEATURES -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>3. Basic 추가 기능</h2><div class="size">860 × 240px</div></div>
+    <button class="dl-btn" onclick="dl(this,'.features','rapid-basic-features',1)">PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="asset features">
+      <div class="feat-title">Basic Only Features</div>
+      <div class="feat-row">
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg></div>
+          <div class="feat-label">갤러리 슬라이더</div>
+          <div class="feat-sub">자동 재생 포트폴리오</div>
+        </div>
+        <div class="feat-sep"></div>
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 8h20"/><path d="M8 8v13"/></svg></div>
+          <div class="feat-label">프로그램/가격 카드</div>
+          <div class="feat-sub">시각적 서비스 정리</div>
+        </div>
+        <div class="feat-sep"></div>
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="feat-label">강사·스태프 소개</div>
+          <div class="feat-sub">전문성 + 신뢰 전달</div>
+        </div>
+        <div class="feat-sep"></div>
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="feat-label">최대 20장 이미지</div>
+          <div class="feat-sub">구석구석 매력 어필</div>
+        </div>
+        <div class="feat-sep"></div>
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="M4 12h16"/><path d="M12 4v16"/><path d="M4 8h16"/><path d="M4 16h16"/></svg></div>
+          <div class="feat-label">8~12개 섹션</div>
+          <div class="feat-sub">풍부한 스토리텔링</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. PROCESS -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>4. 진행 과정</h2><div class="size">860 × 280px</div></div>
+    <button class="dl-btn" onclick="dl(this,'.process','rapid-basic-process',1)">PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="asset process">
+      <div class="process-title">주문부터 오픈까지</div>
+      <div class="process-steps">
+        <div class="step"><div class="step-line"></div><div class="step-num">1</div><div class="step-name">카카오톡 상담</div><div class="step-desc">업종·브랜드·분위기를 알려주세요</div></div>
+        <div class="step"><div class="step-line"></div><div class="step-num">2</div><div class="step-name">의뢰서 작성</div><div class="step-desc">메뉴·가격·프로그램·강사 정보</div></div>
+        <div class="step"><div class="step-line"></div><div class="step-num">3</div><div class="step-name">사이트 제작</div><div class="step-desc">프리미엄 디자인으로 제작</div></div>
+        <div class="step"><div class="step-line"></div><div class="step-num">4</div><div class="step-name">사진 적용</div><div class="step-desc">최대 20장 최적화 적용</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-name">검수 & 오픈</div><div class="step-desc">수정 반영 후 오픈</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. SPECS -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>5. 상품 구성</h2><div class="size">860 × 400px</div></div>
+    <button class="dl-btn" onclick="dl(this,'.specs','rapid-basic-specs',1)">PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="asset specs">
+      <div class="glow"></div>
+      <div class="specs-left">
+        <div class="eyebrow">Basic Package</div>
+        <h4>프리미엄<br>원페이지 홈페이지</h4>
+        <div class="price-row"><div class="won">250,000</div><span>원 (1회)</span></div>
+        <div class="note">+ 운영비 월 19,900원<br>(유지보수 월 1회 포함)</div>
+      </div>
+      <div class="specs-right">
+        <div class="spec-row"><div class="check">✓</div>원페이지 반응형 홈페이지</div>
+        <div class="spec-row highlight"><div class="check">✓</div>8~12개 섹션 구성</div>
+        <div class="spec-row highlight"><div class="check">✓</div>이미지 11~20장 적용</div>
+        <div class="spec-row highlight"><div class="check">✓</div>갤러리 슬라이더 (자동 재생)</div>
+        <div class="spec-row"><div class="check">✓</div>라이트박스 갤러리 (고해상도 확대)</div>
+        <div class="spec-row highlight"><div class="check">✓</div>프로그램/가격 카드 레이아웃</div>
+        <div class="spec-row highlight"><div class="check">✓</div>강사·스태프 소개 섹션</div>
+        <div class="spec-row"><div class="check">✓</div>커스텀 커서 & 스크롤 애니메이션</div>
+        <div class="spec-row"><div class="check">✓</div>카카오톡 문의 버튼</div>
+        <div class="spec-row"><div class="check">✓</div>모바일 하단 고정 바 (전화·카카오)</div>
+        <div class="spec-row"><div class="check">✓</div>매장 사진 최적화 적용</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. PORTFOLIO -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>6. 포트폴리오 안내</h2><div class="size">860 × 180px</div></div>
+    <button class="dl-btn" onclick="dl(this,'.portfolio-cta','rapid-basic-portfolio',1)">PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="asset portfolio-cta">
+      <div class="glow"></div>
+      <div class="pf-left">
+        <div class="eyebrow">Portfolio</div>
+        <h4>Basic으로 제작된 실제 사이트를 확인하세요</h4>
+        <p>헤어살롱 · 네일샵 · 요가 · PT · 인테리어 등</p>
+      </div>
+      <div class="pf-right">
+        <div class="pf-url">dongboweb.vercel.app</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. RISK -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>7. 리스크 해소</h2><div class="size">860 × 260px</div></div>
+    <button class="dl-btn" onclick="dl(this,'.risk','rapid-basic-risk',1)">PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="asset risk">
+      <div class="risk-card">
+        <div class="icon">✏️</div>
+        <h5>수정 가능</h5>
+        <p>완성 전까지 수정 요청을 반영합니다. 만족할 때까지 조율해요.</p>
+      </div>
+      <div class="risk-card">
+        <div class="icon">🔧</div>
+        <h5>유지보수 포함</h5>
+        <p>월 19,900원에 텍스트·사진·메뉴 업데이트 월 1회 제공.</p>
+      </div>
+      <div class="risk-card">
+        <div class="icon">📷</div>
+        <h5>사진 최적화</h5>
+        <p>보내주신 사진을 전문적으로 리사이즈·보정하여 적용합니다.</p>
+      </div>
+      <div class="risk-card">
+        <div class="icon">➕</div>
+        <h5>섹션 추가 가능</h5>
+        <p>오픈 후에도 섹션 추가, 내용 변경이 가능합니다.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. CTA -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>8. 하단 CTA</h2><div class="size">860 × 200px</div></div>
+    <button class="dl-btn" onclick="dl(this,'.cta','rapid-basic-cta',1)">PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="asset cta">
+      <div class="glow"></div>
+      <div class="cta-inner">
+        <h4>내 가게의 격,<br>지금 <em>올려보세요</em></h4>
+        <p>제작비 <strong>250,000원</strong> · 광고는 꺼지지만, 홈페이지는 24시간 일합니다</p>
+      </div>
+      <div class="cta-bottom-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 9. 구분선 -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-head-left"><h2>9. 구분선</h2><div class="size">860 × 48px</div></div>
+    <button class="dl-btn" onclick="dl(this,'.sep','rapid-basic-sep',1)">PNG 다운로드</button>
+  </div>
+  <div class="asset-wrap">
+    <div class="asset sep">
+      <div class="sep-line"></div>
+      <div class="sep-dot"></div>
+      <div class="sep-dot"></div>
+      <div class="sep-dot"></div>
+      <div class="sep-line"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function dl(btn,sel,name,scale){
+  btn.textContent='생성 중...';
+  html2canvas(document.querySelector(sel),{scale:scale,backgroundColor:null,useCORS:true,logging:false}).then(function(c){
+    var a=document.createElement('a');
+    a.download=name+'.png';
+    a.href=c.toDataURL('image/png');
+    a.click();
+    btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> 완료!';
+    btn.classList.add('done');
+    setTimeout(function(){btn.classList.remove('done');btn.innerHTML='PNG 다운로드';},2000);
+  });
+}
+</script>
+</body></html>
