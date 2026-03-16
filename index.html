@@ -82,7 +82,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 /* Morph state — logo moves to nav position */
 .pre-morph{position:fixed;z-index:10001;display:flex;align-items:center;gap:8px;pointer-events:none;opacity:1;transition:none}
 .pre-morph svg{width:56px;height:auto;display:block}
-.pre-morph .pre-morph-text{font-size:16px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.9);text-transform:uppercase;white-space:nowrap}
+.pre-morph .pre-morph-text{font-size:16px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.9);text-transform:uppercase;white-space:nowrap;transition:none}
 /* Fade out after morph */
 .pre-morph.fade{opacity:0;transition:opacity .3s ease}
 
@@ -1256,6 +1256,10 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 var isMobile = window.innerWidth <= 768;
 var isHover = window.matchMedia('(hover:hover)').matches;
 
+/* ===== SCROLL RESET ON REFRESH ===== */
+if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0,0);
+
 /* ===== PRELOADER ===== */
 var preloader = document.getElementById('preloader');
 var preContent = document.getElementById('preContent');
@@ -1266,13 +1270,27 @@ var preLetters = document.getElementById('preLetters');
 var preProgressFill = document.getElementById('preProgressFill');
 document.body.style.overflow = 'hidden';
 
-/* Phase 1: SVG stroke draw (0 → 850ms) */
+/* --- Stroke setup: measure lengths & assign draw groups --- */
+/*  Group 0: outer frame (rect 0)           — draws first, slowest
+    Group 1: title bar (rect 1)             — follows closely
+    Group 2: traffic dots (circle 0,1,2)    — small, quick burst
+    Group 3: eyes (circle 3,4)              — after dots
+    Group 4: smile (path 0)                 — last flourish  */
 var strokeEls = preSvgStroke.querySelectorAll('path,rect,circle');
-strokeEls.forEach(function(el){
+var strokeGroups = [
+  { start: 0.00, end: 0.50 },  /* outer frame */
+  { start: 0.10, end: 0.45 },  /* title bar */
+  { start: 0.30, end: 0.55 },  /* dot 1 */
+  { start: 0.33, end: 0.58 },  /* dot 2 */
+  { start: 0.36, end: 0.61 },  /* dot 3 */
+  { start: 0.45, end: 0.75 },  /* left eye */
+  { start: 0.50, end: 0.80 },  /* right eye */
+  { start: 0.65, end: 0.95 }   /* smile */
+];
+strokeEls.forEach(function(el, i){
   var len;
   try { len = el.getTotalLength(); } catch(e) { len = 0; }
   if(!len){
-    /* Fallback for rect/circle where getTotalLength may not work */
     var tag = el.tagName.toLowerCase();
     if(tag === 'rect'){
       var w = parseFloat(el.getAttribute('width')), h = parseFloat(el.getAttribute('height'));
@@ -1286,112 +1304,124 @@ strokeEls.forEach(function(el){
   el.style.strokeDashoffset = len;
   el.setAttribute('data-len', len);
 });
-/* Stagger stroke animation */
+
+/* --- Phase 1: Stroke draw (0 → 1000ms) --- */
 var strokeStart = performance.now();
-var strokeDuration = 850;
+var strokeDuration = 1000;
+function easeOutQuart(t){ return 1 - Math.pow(1-t, 4); }
 function animStroke(now){
-  var elapsed = now - strokeStart;
-  var progress = Math.min(elapsed / strokeDuration, 1);
-  var eased = 1 - Math.pow(1 - progress, 3); /* ease-out cubic */
+  var t = Math.min((now - strokeStart) / strokeDuration, 1);
   strokeEls.forEach(function(el, i){
-    var delay = i * 0.08; /* stagger per element */
-    var elProgress = Math.max(0, Math.min((eased - delay) / (1 - delay), 1));
+    var g = strokeGroups[i] || { start: 0, end: 1 };
+    var local = Math.max(0, Math.min((t - g.start) / (g.end - g.start), 1));
+    var eased = easeOutQuart(local);
     var len = parseFloat(el.getAttribute('data-len'));
-    el.style.strokeDashoffset = len * (1 - elProgress);
+    el.style.strokeDashoffset = len * (1 - eased);
   });
-  if(progress < 1) requestAnimationFrame(animStroke);
+  if(t < 1) requestAnimationFrame(animStroke);
 }
 requestAnimationFrame(animStroke);
 
-/* Phase 2: Stroke fade + fill appear (850ms) */
+/* --- Phase 2: Crossfade stroke → fill (overlapping at 800ms) --- */
 setTimeout(function(){
+  preSvgStroke.style.transition = 'opacity .4s ease';
   preSvgStroke.style.opacity = '0';
-  preSvgStroke.style.transition = 'opacity .3s ease';
+}, 800);
+setTimeout(function(){
   preSvgFill.classList.add('in');
-}, strokeDuration);
+  /* Subtle scale pulse when logo "comes alive" */
+  preSvgWrap.style.transition = 'transform .5s var(--ease)';
+  preSvgWrap.style.transform = 'scale(1.06)';
+  setTimeout(function(){
+    preSvgWrap.style.transform = 'scale(1)';
+  }, 250);
+}, 900);
 
-/* Phase 3: Letters clip-path wipe (1000ms) */
+/* --- Phase 3: Letters clip-path wipe (1150ms) --- */
 setTimeout(function(){
   preLetters.classList.add('in');
-}, 1000);
+}, 1150);
 
-/* Phase 4: Progress line (1000ms → ~2000ms) */
-var progStart = null, progDone = false;
+/* --- Phase 4: Progress line (1300ms → 2100ms, 800ms fill) --- */
+var progDone = false;
 setTimeout(function(){
-  progStart = performance.now();
+  var progStart = performance.now();
+  function animProgress(now){
+    if(progDone) return;
+    var t = Math.min((now - progStart) / 800, 1);
+    /* Smooth ease-out */
+    var eased = 1 - Math.pow(1-t, 3);
+    preProgressFill.style.width = (eased * 100) + '%';
+    if(t < 1) requestAnimationFrame(animProgress);
+    else { progDone = true; setTimeout(startMorph, 250); }
+  }
   requestAnimationFrame(animProgress);
-}, 1000);
-function animProgress(now){
-  if(progDone) return;
-  var elapsed = now - progStart;
-  var pct = Math.min(elapsed / 1000, 1); /* 1s fill */
-  var eased = pct < 0.5 ? 2*pct*pct : 1 - Math.pow(-2*pct+2,2)/2; /* ease-in-out */
-  preProgressFill.style.width = (eased * 100) + '%';
-  if(pct < 1){ requestAnimationFrame(animProgress); }
-  else { progDone = true; setTimeout(startMorph, 300); }
-}
+}, 1300);
 
-/* Phase 5: Morph logo to nav position (2300ms) */
+/* --- Phase 5: Morph logo → nav position --- */
 function startMorph(){
-  var navLogo = document.querySelector('.nav-logo');
   var navIcon = document.querySelector('.nav-logo-icon');
-  if(!navLogo || !navIcon) { finishPreloader(); return; }
+  if(!navIcon){ finishPreloader(); return; }
 
-  /* Get current center position of preloader logo */
   var srcRect = preSvgWrap.getBoundingClientRect();
-  var lettersRect = preLetters.getBoundingClientRect();
+  var navRect = navIcon.getBoundingClientRect();
 
-  /* Create morph element */
+  /* Create morph clone */
   var morph = document.createElement('div');
   morph.className = 'pre-morph';
-  /* Clone the fill SVG */
-  var svgClone = preSvgFill.querySelector('svg').cloneNode(true);
-  morph.appendChild(svgClone);
-  /* Add text */
+  morph.appendChild(preSvgFill.querySelector('svg').cloneNode(true));
   var morphText = document.createElement('span');
   morphText.className = 'pre-morph-text';
   morphText.textContent = 'DONGBO WEB';
   morph.appendChild(morphText);
 
-  /* Position at current preloader logo center */
-  var startX = srcRect.left;
-  var startY = srcRect.top;
-  morph.style.left = startX + 'px';
-  morph.style.top = startY + 'px';
-  morph.style.transform = 'scale(1)';
+  /* Start position — centered where preloader logo is */
+  var sx = srcRect.left, sy = srcRect.top;
+  morph.style.left = sx + 'px';
+  morph.style.top = sy + 'px';
+  morph.style.transformOrigin = 'top left';
   document.body.appendChild(morph);
 
-  /* Hide pre-content */
+  /* Fade out preloader content simultaneously */
+  preContent.style.transition = 'opacity .25s ease';
   preContent.style.opacity = '0';
-  preContent.style.transition = 'opacity .2s ease';
+  document.getElementById('preProgress').style.transition = 'opacity .25s ease';
   document.getElementById('preProgress').style.opacity = '0';
-  document.getElementById('preProgress').style.transition = 'opacity .2s ease';
 
-  /* Calculate target (nav logo position) */
-  var navRect = navIcon.getBoundingClientRect();
-  var targetX = navRect.left;
-  var targetY = navRect.top;
-  var scaleFactor = navRect.width / srcRect.width; /* 22/56 ≈ 0.39 */
+  /* Target */
+  var tx = navRect.left, ty = navRect.top;
+  var scale = navRect.width / srcRect.width;
 
-  /* Animate morph */
-  requestAnimationFrame(function(){
-    morph.style.transition = 'left .6s var(--ease), top .6s var(--ease), transform .6s var(--ease)';
-    morph.style.left = targetX + 'px';
-    morph.style.top = targetY + 'px';
-    morph.style.transform = 'scale(' + scaleFactor + ')';
-    morph.style.transformOrigin = 'top left';
-    /* Text shrinks and fades */
-    morphText.style.transition = 'opacity .3s ease .1s, font-size .6s var(--ease)';
-    morphText.style.opacity = '0';
-    morphText.style.fontSize = '15px';
-  });
-
-  /* Phase 6: Fade morph, open curtains (2900ms) */
-  setTimeout(function(){
-    morph.classList.add('fade');
-    setTimeout(function(){ morph.remove(); }, 300);
-    finishPreloader();
-  }, 600);
+  /* Animate with rAF for smooth arc (slight upward curve) */
+  var morphStart = performance.now();
+  var morphDur = 650;
+  function animMorph(now){
+    var t = Math.min((now - morphStart) / morphDur, 1);
+    /* Smooth ease: fast start, gentle land */
+    var e = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+    /* Horizontal & vertical interpolation */
+    var cx = sx + (tx - sx) * e;
+    var cy = sy + (ty - sy) * e;
+    /* Slight upward arc in the middle of the path */
+    var arc = Math.sin(t * Math.PI) * -30;
+    cy += arc;
+    var s = 1 + (scale - 1) * e;
+    morph.style.left = cx + 'px';
+    morph.style.top = cy + 'px';
+    morph.style.transform = 'scale(' + s + ')';
+    /* Text fades out in first half */
+    morphText.style.opacity = Math.max(0, 1 - t * 2.5);
+    if(t < 1) requestAnimationFrame(animMorph);
+    else {
+      /* Settle: brief hold then fade */
+      setTimeout(function(){
+        morph.classList.add('fade');
+        setTimeout(function(){ morph.remove(); }, 300);
+        finishPreloader();
+      }, 80);
+    }
+  }
+  requestAnimationFrame(animMorph);
 }
 
 function finishPreloader(){
