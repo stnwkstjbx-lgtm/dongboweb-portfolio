@@ -91,10 +91,6 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 .pre-letters.in span:nth-child(7){transition-delay:.22s}.pre-letters.in span:nth-child(8){transition-delay:.25s}
 .pre-letters.in span:nth-child(9){transition-delay:.28s}
 .pre-space{width:8px}
-/* Counter */
-.pre-counter{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.06em;opacity:0;transition:opacity .3s ease;margin-top:4px}
-.pre-counter.in{opacity:1}
-.pre-counter.flash{color:rgba(255,255,255,.6);transition:color .15s ease}
 /* Progress line — full width at bottom, glowing tip */
 .pre-progress{position:absolute;bottom:0;left:0;width:100%;height:2px;background:rgba(255,255,255,.06);z-index:5}
 .pre-progress-fill{position:relative;height:100%;width:0;background:linear-gradient(90deg,#3B5998,#5B79B8);box-shadow:0 0 12px rgba(59,89,152,.5)}
@@ -767,7 +763,6 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
       </div>
     </div>
     <div class="pre-letters" id="preLetters"><span>D</span><span>O</span><span>N</span><span>G</span><span>B</span><span>O</span><span class="pre-space"></span><span>W</span><span>E</span><span>B</span></div>
-    <span class="pre-counter" id="preCounter">0</span>
   </div>
   <div class="pre-progress" id="preProgress"><div class="pre-progress-fill" id="preProgressFill"></div></div>
 </div>
@@ -1295,7 +1290,6 @@ var preSvgFill = document.getElementById('preSvgFill');
 var preSvgWrap = document.getElementById('preSvgWrap');
 var preLetters = document.getElementById('preLetters');
 var preProgressFill = document.getElementById('preProgressFill');
-var preCounter = document.getElementById('preCounter');
 document.body.style.overflow = 'hidden';
 
 /* --- Stroke setup: measure lengths & assign draw groups --- */
@@ -1371,21 +1365,16 @@ setTimeout(function(){
 /* --- Phase 4: Progress + counter (1350ms → 2150ms, 800ms fill) --- */
 var progDone = false;
 setTimeout(function(){
-  preCounter.classList.add('in');
   var progStart = performance.now();
   function animProgress(now){
     if(progDone) return;
     var t = Math.min((now - progStart) / 800, 1);
-    /* Smooth ease-out */
     var eased = 1 - Math.pow(1-t, 3);
     preProgressFill.style.width = (eased * 100) + '%';
-    preCounter.textContent = Math.round(eased * 100);
     if(t < 1) requestAnimationFrame(animProgress);
     else {
       progDone = true;
       preProgressFill.classList.add('done');
-      /* Counter flash on completion */
-      preCounter.classList.add('flash');
       /* Eye blink — "ready" personality moment, all elements visible */
       var eyes = preSvgFill.querySelectorAll('.pre-eye');
       eyes.forEach(function(eye){ eye.classList.add('blink'); });
