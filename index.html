@@ -55,30 +55,47 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 
 /* ===== PRELOADER ===== */
 .preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--fg);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden}
-.preloader::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:60px 60px;opacity:0;animation:gridIn .8s ease .1s forwards}
+.preloader::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:60px 60px;opacity:0;animation:gridIn .8s ease .1s forwards,gridDrift 25s linear .1s infinite}
 @keyframes gridIn{to{opacity:1}}
+@keyframes gridDrift{to{background-position:60px 60px}}
+/* Ambient glow orbs */
+.pre-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:1;opacity:0}
+.pre-orb-1{width:300px;height:300px;top:18%;left:12%;background:radial-gradient(circle,rgba(59,89,152,.07),transparent 70%);animation:orbIn 1.5s ease .3s forwards,orbFloat1 12s ease-in-out infinite}
+.pre-orb-2{width:220px;height:220px;bottom:22%;right:15%;background:radial-gradient(circle,rgba(74,108,247,.05),transparent 70%);animation:orbIn 1.5s ease .6s forwards,orbFloat2 15s ease-in-out infinite}
+@keyframes orbIn{to{opacity:1}}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-15px)}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0)}50%{transform:translate(-15px,12px)}}
+.preloader.exit .pre-orb{opacity:0!important;transition:opacity .3s}
 .preloader.exit{pointer-events:none;background:transparent}
 .preloader.exit::before{opacity:0!important;transition:opacity .3s}
 .pre-content{display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;z-index:5}
 /* SVG logo — stroke draw + fill */
 .pre-svg-wrap{width:56px;height:auto;position:relative}
 .pre-svg-wrap svg{width:100%;height:auto;display:block}
+.pre-svg-stroke{filter:drop-shadow(0 0 6px rgba(59,89,152,.45));transition:filter .4s ease,opacity .4s ease}
 .pre-svg-stroke path,.pre-svg-stroke rect,.pre-svg-stroke circle{fill:none;stroke:rgba(255,255,255,.6);stroke-width:1.5}
+.pre-svg-stroke.fade-out{filter:drop-shadow(0 0 0 transparent);opacity:0}
 .pre-svg-fill{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity .35s ease}
 .pre-svg-fill.in{opacity:1}
-/* Letters — clip-path wipe */
+/* Eye blink */
+@keyframes preBlink{0%,100%{transform:scaleY(1)}40%,60%{transform:scaleY(.1)}}
+.pre-eye{transform-origin:center;transform-box:fill-box}
+.pre-eye.blink{animation:preBlink .2s ease-in-out}
+/* Letters — clip-path wipe + blur materialize */
 .pre-letters{display:flex;gap:0;font-size:16px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.9);text-transform:uppercase}
-.pre-letters span{display:inline-block;clip-path:inset(100% 0 0 0);transition:clip-path .4s var(--ease)}
-.pre-letters.in span{clip-path:inset(0 0 0 0)}
+.pre-letters span{display:inline-block;clip-path:inset(100% 0 0 0);filter:blur(3px);transition:clip-path .4s var(--ease),filter .5s var(--ease)}
+.pre-letters.in span{clip-path:inset(0 0 0 0);filter:blur(0)}
 .pre-letters.in span:nth-child(1){transition-delay:.0s}.pre-letters.in span:nth-child(2){transition-delay:.03s}
 .pre-letters.in span:nth-child(3){transition-delay:.06s}.pre-letters.in span:nth-child(4){transition-delay:.09s}
 .pre-letters.in span:nth-child(5){transition-delay:.12s}.pre-letters.in span:nth-child(6){transition-delay:.15s}
 .pre-letters.in span:nth-child(7){transition-delay:.22s}.pre-letters.in span:nth-child(8){transition-delay:.25s}
 .pre-letters.in span:nth-child(9){transition-delay:.28s}
 .pre-space{width:10px}
-/* Progress line — full width at bottom */
+/* Progress line — full width at bottom, glowing tip */
 .pre-progress{position:absolute;bottom:0;left:0;width:100%;height:2px;background:rgba(255,255,255,.06);z-index:5}
-.pre-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#3B5998,#5B79B8);box-shadow:0 0 12px rgba(59,89,152,.5);transition:width .05s linear}
+.pre-progress-fill{position:relative;height:100%;width:0;background:linear-gradient(90deg,#3B5998,#5B79B8);box-shadow:0 0 12px rgba(59,89,152,.5)}
+.pre-progress-fill::after{content:'';position:absolute;right:-3px;top:50%;width:6px;height:6px;border-radius:50%;background:#7B99D4;box-shadow:0 0 10px 2px rgba(59,89,152,.6);transform:translateY(-50%);transition:opacity .3s}
+.pre-progress-fill.done::after{opacity:0}
 /* Morph state — logo moves to nav position */
 .pre-morph{position:fixed;z-index:10001;display:flex;align-items:center;gap:8px;pointer-events:none;opacity:1;transition:none}
 .pre-morph svg{width:56px;height:auto;display:block}
@@ -722,6 +739,8 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 <div class="preloader" id="preloader">
   <div class="pre-curtain pre-curtain-l"></div>
   <div class="pre-curtain pre-curtain-r"></div>
+  <div class="pre-orb pre-orb-1"></div>
+  <div class="pre-orb pre-orb-2"></div>
   <div class="pre-content" id="preContent">
     <div class="pre-svg-wrap" id="preSvgWrap">
       <!-- Stroke layer (draws in) -->
@@ -737,7 +756,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
       </svg>
       <!-- Fill layer (fades in after stroke) -->
       <div class="pre-svg-fill" id="preSvgFill">
-        <svg viewBox="0 0 80 68" fill="none"><defs><linearGradient id="pbar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient><linearGradient id="ptb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3451B2"/><stop offset="100%" stop-color="#2D4A85"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#pbar)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="url(#ptb)"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="29.5" cy="36" r=".8" fill="#fff"/><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><circle cx="55.5" cy="36" r=".8" fill="#fff"/><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        <svg viewBox="0 0 80 68" fill="none"><defs><linearGradient id="pbar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A6CF7"/><stop offset="100%" stop-color="#3B5998"/></linearGradient><linearGradient id="ptb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3451B2"/><stop offset="100%" stop-color="#2D4A85"/></linearGradient></defs><rect x="4" y="4" width="72" height="58" rx="12" fill="url(#pbar)"/><rect x="4" y="4" width="72" height="18" rx="12" fill="url(#ptb)"/><rect x="4" y="16" width="72" height="6" fill="#2D4A85"/><circle cx="16" cy="13" r="2.5" fill="#ff5f57"/><circle cx="24" cy="13" r="2.5" fill="#febc2e"/><circle cx="32" cy="13" r="2.5" fill="#28c840"/><rect x="40" y="10.5" width="28" height="5" rx="2.5" fill="rgba(255,255,255,.1)"/><g class="pre-eye" style="transform-origin:27px 38px"><circle cx="27" cy="38" r="5" fill="#fff"/><circle cx="28.5" cy="37" r="2" fill="#2D4A85"/><circle cx="29.5" cy="36" r=".8" fill="#fff"/></g><g class="pre-eye" style="transform-origin:53px 38px"><circle cx="53" cy="38" r="5" fill="#fff"/><circle cx="54.5" cy="37" r="2" fill="#2D4A85"/><circle cx="55.5" cy="36" r=".8" fill="#fff"/></g><path d="M35 49c2 3.5 8 3.5 10 0" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
       </div>
     </div>
     <div class="pre-letters" id="preLetters"><span>D</span><span>O</span><span>N</span><span>G</span><span>B</span><span>O</span><span class="pre-space"></span><span>W</span><span>E</span><span>B</span></div>
@@ -1239,7 +1258,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 </a>
 
 <noscript><style>
-.preloader,.scroll-bar,.cursor-dot,.cursor-ring,.cursor-label{display:none!important}
+.preloader,.pre-orb,.scroll-bar,.cursor-dot,.cursor-ring,.cursor-label{display:none!important}
 .portal,.float-top,.float-chat{display:none!important}
 .sr,.work-header,.work-item,.work-tier-divider,.marquee-wrap{opacity:1!important;transform:none!important}
 .hero-tag-inner,.hero-title .line-inner{transform:none!important}
@@ -1324,8 +1343,7 @@ requestAnimationFrame(animStroke);
 
 /* --- Phase 2: Crossfade stroke → fill (overlapping at 800ms) --- */
 setTimeout(function(){
-  preSvgStroke.style.transition = 'opacity .4s ease';
-  preSvgStroke.style.opacity = '0';
+  preSvgStroke.classList.add('fade-out');
 }, 800);
 setTimeout(function(){
   preSvgFill.classList.add('in');
@@ -1336,6 +1354,11 @@ setTimeout(function(){
     preSvgWrap.style.transform = 'scale(1)';
   }, 250);
 }, 900);
+/* Eye blink — personality moment after fill */
+setTimeout(function(){
+  var eyes = preSvgFill.querySelectorAll('.pre-eye');
+  eyes.forEach(function(eye){ eye.classList.add('blink'); });
+}, 1100);
 
 /* --- Phase 3: Letters clip-path wipe (1150ms) --- */
 setTimeout(function(){
@@ -1353,7 +1376,7 @@ setTimeout(function(){
     var eased = 1 - Math.pow(1-t, 3);
     preProgressFill.style.width = (eased * 100) + '%';
     if(t < 1) requestAnimationFrame(animProgress);
-    else { progDone = true; setTimeout(startMorph, 250); }
+    else { progDone = true; preProgressFill.classList.add('done'); setTimeout(startMorph, 250); }
   }
   requestAnimationFrame(animProgress);
 }, 1300);
@@ -1413,12 +1436,20 @@ function startMorph(){
     morphText.style.opacity = Math.max(0, 1 - t * 2.5);
     if(t < 1) requestAnimationFrame(animMorph);
     else {
-      /* Settle: brief hold then fade */
-      setTimeout(function(){
-        morph.classList.add('fade');
-        setTimeout(function(){ morph.remove(); }, 300);
-        finishPreloader();
-      }, 80);
+      /* Spring landing: overshoot then settle */
+      var springStart = performance.now();
+      function animSpring(now2){
+        var st = Math.min((now2 - springStart) / 150, 1);
+        var springScale = scale * (1 + 0.04 * Math.sin(st * Math.PI * 2) * (1 - st));
+        morph.style.transform = 'scale(' + springScale + ')';
+        if(st < 1) requestAnimationFrame(animSpring);
+        else {
+          morph.classList.add('fade');
+          setTimeout(function(){ morph.remove(); }, 300);
+          finishPreloader();
+        }
+      }
+      requestAnimationFrame(animSpring);
     }
   }
   requestAnimationFrame(animMorph);
