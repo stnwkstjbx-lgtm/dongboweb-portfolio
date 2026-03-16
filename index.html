@@ -70,19 +70,19 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 .preloader.exit::before{opacity:0!important;transition:opacity .3s}
 .pre-content{display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;z-index:5}
 /* SVG logo — stroke draw + fill */
-.pre-svg-wrap{width:56px;height:auto;position:relative}
+.pre-svg-wrap{width:80px;height:auto;position:relative}
 .pre-svg-wrap svg{width:100%;height:auto;display:block}
-.pre-svg-stroke{filter:drop-shadow(0 0 6px rgba(59,89,152,.45));transition:filter .4s ease,opacity .4s ease}
-.pre-svg-stroke path,.pre-svg-stroke rect,.pre-svg-stroke circle{fill:none;stroke:rgba(255,255,255,.6);stroke-width:1.5}
+.pre-svg-stroke{filter:drop-shadow(0 0 8px rgba(59,89,152,.45));transition:filter .4s ease,opacity .4s ease}
+.pre-svg-stroke path,.pre-svg-stroke rect,.pre-svg-stroke circle{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.2}
 .pre-svg-stroke.fade-out{filter:drop-shadow(0 0 0 transparent);opacity:0}
-.pre-svg-fill{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity .35s ease}
+.pre-svg-fill{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity .4s ease}
 .pre-svg-fill.in{opacity:1}
 /* Eye blink */
 @keyframes preBlink{0%,100%{transform:scaleY(1)}40%,60%{transform:scaleY(.1)}}
 .pre-eye{transform-origin:center;transform-box:fill-box}
-.pre-eye.blink{animation:preBlink .2s ease-in-out}
+.pre-eye.blink{animation:preBlink .25s ease-in-out}
 /* Letters — clip-path wipe + blur materialize */
-.pre-letters{display:flex;gap:0;font-size:16px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.9);text-transform:uppercase}
+.pre-letters{display:flex;gap:0;font-size:15px;font-weight:600;letter-spacing:.18em;color:rgba(255,255,255,.85);text-transform:uppercase}
 .pre-letters span{display:inline-block;clip-path:inset(100% 0 0 0);filter:blur(3px);transition:clip-path .4s var(--ease),filter .5s var(--ease)}
 .pre-letters.in span{clip-path:inset(0 0 0 0);filter:blur(0)}
 .pre-letters.in span:nth-child(1){transition-delay:.0s}.pre-letters.in span:nth-child(2){transition-delay:.03s}
@@ -90,16 +90,23 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
 .pre-letters.in span:nth-child(5){transition-delay:.12s}.pre-letters.in span:nth-child(6){transition-delay:.15s}
 .pre-letters.in span:nth-child(7){transition-delay:.22s}.pre-letters.in span:nth-child(8){transition-delay:.25s}
 .pre-letters.in span:nth-child(9){transition-delay:.28s}
-.pre-space{width:10px}
+.pre-space{width:8px}
+/* Counter */
+.pre-counter{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.06em;opacity:0;transition:opacity .3s ease;margin-top:4px}
+.pre-counter.in{opacity:1}
+.pre-counter.flash{color:rgba(255,255,255,.6);transition:color .15s ease}
 /* Progress line — full width at bottom, glowing tip */
 .pre-progress{position:absolute;bottom:0;left:0;width:100%;height:2px;background:rgba(255,255,255,.06);z-index:5}
 .pre-progress-fill{position:relative;height:100%;width:0;background:linear-gradient(90deg,#3B5998,#5B79B8);box-shadow:0 0 12px rgba(59,89,152,.5)}
 .pre-progress-fill::after{content:'';position:absolute;right:-3px;top:50%;width:6px;height:6px;border-radius:50%;background:#7B99D4;box-shadow:0 0 10px 2px rgba(59,89,152,.6);transform:translateY(-50%);transition:opacity .3s}
 .pre-progress-fill.done::after{opacity:0}
+/* Light flash — bridges dark→light transition */
+.preloader.exit::after{content:'';position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse at center,rgba(255,255,255,.1),transparent 70%);animation:lightFlash .6s ease forwards}
+@keyframes lightFlash{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
 /* Morph state — logo moves to nav position */
-.pre-morph{position:fixed;z-index:10001;display:flex;align-items:center;gap:8px;pointer-events:none;opacity:1;transition:none}
-.pre-morph svg{width:56px;height:auto;display:block}
-.pre-morph .pre-morph-text{font-size:16px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.9);text-transform:uppercase;white-space:nowrap;transition:none}
+.pre-morph{position:fixed;z-index:10001;display:flex;align-items:center;gap:10px;pointer-events:none;opacity:1;transition:none}
+.pre-morph svg{width:80px;height:auto;display:block}
+.pre-morph .pre-morph-text{font-size:15px;font-weight:600;letter-spacing:.18em;color:rgba(255,255,255,.85);text-transform:uppercase;white-space:nowrap}
 /* Fade out after morph */
 .pre-morph.fade{opacity:0;transition:opacity .3s ease}
 
@@ -760,6 +767,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
       </div>
     </div>
     <div class="pre-letters" id="preLetters"><span>D</span><span>O</span><span>N</span><span>G</span><span>B</span><span>O</span><span class="pre-space"></span><span>W</span><span>E</span><span>B</span></div>
+    <span class="pre-counter" id="preCounter">0</span>
   </div>
   <div class="pre-progress" id="preProgress"><div class="pre-progress-fill" id="preProgressFill"></div></div>
 </div>
@@ -1287,6 +1295,7 @@ var preSvgFill = document.getElementById('preSvgFill');
 var preSvgWrap = document.getElementById('preSvgWrap');
 var preLetters = document.getElementById('preLetters');
 var preProgressFill = document.getElementById('preProgressFill');
+var preCounter = document.getElementById('preCounter');
 document.body.style.overflow = 'hidden';
 
 /* --- Stroke setup: measure lengths & assign draw groups --- */
@@ -1354,20 +1363,15 @@ setTimeout(function(){
     preSvgWrap.style.transform = 'scale(1)';
   }, 250);
 }, 900);
-/* Eye blink — personality moment after fill */
-setTimeout(function(){
-  var eyes = preSvgFill.querySelectorAll('.pre-eye');
-  eyes.forEach(function(eye){ eye.classList.add('blink'); });
-}, 1100);
-
-/* --- Phase 3: Letters clip-path wipe (1150ms) --- */
+/* --- Phase 3: Letters clip-path wipe (1100ms) --- */
 setTimeout(function(){
   preLetters.classList.add('in');
-}, 1150);
+}, 1100);
 
-/* --- Phase 4: Progress line (1300ms → 2100ms, 800ms fill) --- */
+/* --- Phase 4: Progress + counter (1350ms → 2150ms, 800ms fill) --- */
 var progDone = false;
 setTimeout(function(){
+  preCounter.classList.add('in');
   var progStart = performance.now();
   function animProgress(now){
     if(progDone) return;
@@ -1375,11 +1379,21 @@ setTimeout(function(){
     /* Smooth ease-out */
     var eased = 1 - Math.pow(1-t, 3);
     preProgressFill.style.width = (eased * 100) + '%';
+    preCounter.textContent = Math.round(eased * 100);
     if(t < 1) requestAnimationFrame(animProgress);
-    else { progDone = true; preProgressFill.classList.add('done'); setTimeout(startMorph, 250); }
+    else {
+      progDone = true;
+      preProgressFill.classList.add('done');
+      /* Counter flash on completion */
+      preCounter.classList.add('flash');
+      /* Eye blink — "ready" personality moment, all elements visible */
+      var eyes = preSvgFill.querySelectorAll('.pre-eye');
+      eyes.forEach(function(eye){ eye.classList.add('blink'); });
+      setTimeout(startMorph, 350);
+    }
   }
   requestAnimationFrame(animProgress);
-}, 1300);
+}, 1350);
 
 /* --- Phase 5: Morph logo → nav position --- */
 function startMorph(){
@@ -1413,11 +1427,13 @@ function startMorph(){
 
   /* Target */
   var tx = navRect.left, ty = navRect.top;
-  var scale = navRect.width / srcRect.width;
+  var scale = navRect.width / srcRect.width; /* 22/80 ≈ 0.275 */
 
-  /* Animate with rAF for smooth arc (slight upward curve) */
+  /* Animate with rAF for smooth arc */
   var morphStart = performance.now();
-  var morphDur = 650;
+  var morphDur = 700;
+  /* Letter-spacing transition: .18em → -.01em */
+  var lsStart = 0.18, lsEnd = -0.01;
   function animMorph(now){
     var t = Math.min((now - morphStart) / morphDur, 1);
     /* Smooth ease: fast start, gentle land */
@@ -1426,14 +1442,16 @@ function startMorph(){
     var cx = sx + (tx - sx) * e;
     var cy = sy + (ty - sy) * e;
     /* Slight upward arc in the middle of the path */
-    var arc = Math.sin(t * Math.PI) * -30;
+    var arc = Math.sin(t * Math.PI) * -35;
     cy += arc;
     var s = 1 + (scale - 1) * e;
     morph.style.left = cx + 'px';
     morph.style.top = cy + 'px';
     morph.style.transform = 'scale(' + s + ')';
-    /* Text fades out in first half */
-    morphText.style.opacity = Math.max(0, 1 - t * 2.5);
+    /* Text: letter-spacing converges, then fades */
+    var ls = lsStart + (lsEnd - lsStart) * e;
+    morphText.style.letterSpacing = ls + 'em';
+    morphText.style.opacity = Math.max(0, 1 - t * 2.2);
     if(t < 1) requestAnimationFrame(animMorph);
     else {
       /* Spring landing: overshoot then settle */
