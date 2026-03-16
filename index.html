@@ -639,6 +639,17 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
   /* Misc */
   .sec-divider{margin:0 20px}
   .float-top,.float-chat{cursor:default}
+  /* Preloader — mobile */
+  .preloader::before{background-size:40px 40px}
+  .pre-svg-wrap{width:64px}
+  .pre-svg-stroke{filter:drop-shadow(0 0 4px rgba(59,89,152,.35))}
+  .pre-letters{font-size:13px;letter-spacing:.14em}
+  .pre-letters span{filter:none;transition:clip-path .4s var(--ease)}
+  .pre-letters.in span{filter:none}
+  .pre-orb-1{width:180px;height:180px;top:22%;left:5%}
+  .pre-orb-2{display:none}
+  .pre-morph svg{width:64px}
+  .pre-morph .pre-morph-text{font-size:13px;letter-spacing:.14em}
 }
 
 /* ===== PRELOADER CURTAIN ===== */
@@ -1421,8 +1432,8 @@ function startMorph(){
   /* Animate with rAF for smooth arc */
   var morphStart = performance.now();
   var morphDur = 700;
-  /* Letter-spacing transition: .18em → -.01em */
-  var lsStart = 0.18, lsEnd = -0.01;
+  /* Letter-spacing transition: preloader → nav style */
+  var lsStart = isMobile ? 0.14 : 0.18, lsEnd = -0.01;
   function animMorph(now){
     var t = Math.min((now - morphStart) / morphDur, 1);
     /* Smooth ease: fast start, gentle land */
@@ -1431,7 +1442,7 @@ function startMorph(){
     var cx = sx + (tx - sx) * e;
     var cy = sy + (ty - sy) * e;
     /* Slight upward arc in the middle of the path */
-    var arc = Math.sin(t * Math.PI) * -35;
+    var arc = Math.sin(t * Math.PI) * (isMobile ? -15 : -35);
     cy += arc;
     var s = 1 + (scale - 1) * e;
     morph.style.left = cx + 'px';
