@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="naver-site-verification" content="fe94274cae1d251f87b97f91ea0517972d5320b5" />
 <title>소상공인 홈페이지 제작 15만원 — 동보웹 DONGBO WEB</title>
 <meta name="description" content="소상공인 홈페이지 제작 전문. 카페, 살롱, 학원, 스튜디오 등 12종 프리미엄 템플릿. 제작비 15만원, 유지비 월 19,900원. 반응형 디자인, 무료 호스팅 포함.">
@@ -639,6 +639,8 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
   /* Misc */
   .sec-divider{margin:0 20px}
   .float-top,.float-chat{cursor:default}
+  .float-top{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+  .float-chat{bottom:calc(68px + env(safe-area-inset-bottom,0px))}
   /* Preloader — mobile */
   .preloader::before{background-size:40px 40px}
   .pre-svg-wrap{width:64px}
@@ -648,6 +650,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
   .pre-letters.in span{filter:none}
   .pre-orb-1{width:180px;height:180px;top:22%;left:5%}
   .pre-orb-2{display:none}
+  .pre-progress{bottom:calc(8px + env(safe-area-inset-bottom, 0px))}
   .pre-morph svg{width:64px}
   .pre-morph .pre-morph-text{font-size:13px;letter-spacing:.14em}
 }
