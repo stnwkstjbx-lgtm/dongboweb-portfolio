@@ -630,7 +630,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font-sans);overflow-
   .insta-grid{grid-template-columns:repeat(2,1fr);gap:8px}
   .insta-item,.insta-btn{cursor:default}
   /* Footer */
-  .footer{padding:48px 20px 24px}
+  .footer{padding:48px 20px calc(24px + env(safe-area-inset-bottom,0px))}
   .footer-cols{grid-template-columns:1fr;gap:28px;text-align:center}
   .footer-brand{justify-content:center}
   .footer-links{align-items:center}
